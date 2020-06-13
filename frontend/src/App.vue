@@ -4,7 +4,6 @@
       <router-link to="/">Accueil</router-link> |
       <router-link to="/connect_inscription">Connexion/ Inscription</router-link> |
       <router-link to="/disconnect">Déconnexion</router-link>
-
     </div>
     <router-view/>
   </div>

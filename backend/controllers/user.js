@@ -10,28 +10,22 @@ exports.signup = (req, res, next) => {
   .then(hash => {
       const sqlHost = process.env.SQL_HOST;
 
-      var connection = mysql.createConnection({
-        host     : sqlHost,
-        user     : 'root',
-        password : 'root',
-        database : 'GROUPOMANIA',
-        port: '8889'
-      });
-      
-      connection.connect();
-      
-      connection.query("INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')", function (error, results, fields) {
-        if (error) throw error;
-        console.log("ok-inscription");
-      });
+        var connection = mysql.createConnection({
+          host     : sqlHost,
+          user     : 'root',
+          password : 'root',
+          database : 'GROUPOMANIA',
+          port: '8889'
+        });
 
-      connection.end();
+          connection.connect();
+          
+          connection.query("INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')", function (error, results, fields) {
+            if (error) throw error;
+            console.log("ok-inscription");
+          });
 
-
-
-
-
-
+          connection.end();
     });
           
 
