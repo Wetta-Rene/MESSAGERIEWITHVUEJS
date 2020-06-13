@@ -4,6 +4,9 @@ const User = require('../models/User');
 var mysql = require('mysql');
 var axios = require('axios');
 
+
+
+
 // enregistrement utilisateur avec hashage mot de passe
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
@@ -49,6 +52,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({ message: 'Error to connect' }));
     */
 };
+
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
