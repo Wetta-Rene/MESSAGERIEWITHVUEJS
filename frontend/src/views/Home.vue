@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <Component_Connexion />
+    <div id="infoConnexionToUseApi">Vous devez être connecté.e pour utiliser l'application !</div>
+      <Component_Connexion />
   </div>
 </template>
 

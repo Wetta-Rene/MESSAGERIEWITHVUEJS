@@ -29,7 +29,7 @@ export default {
             pseudo: null,
             email: null,
             password: null,
-            level: null,
+            level: null 
         }
     },
     methods:{
@@ -45,7 +45,7 @@ export default {
                         level: this.level})
                 .then(function (response) {
                     if(response.data.userInsert){ //si l'utilisateur est bien inscrit
-                        location.reload(); //on recharge la page
+                        window.location.replace("http://localhost:8080/"); //on recharge la page
                         //localstorage.setItem********
                         console.log(response);
                     }
