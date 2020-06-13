@@ -27,6 +27,7 @@ exports.signup = (req, res, next) => {
 
           connection.end();
     })
+    .then(() => res.status(201).json({ userInsert: true}))
     .catch(error => res.status(500).json({ message: 'Error to connect' }));
 
           

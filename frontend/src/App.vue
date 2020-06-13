@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Accueil</router-link> |
-      <router-link to="/connect_inscription">Connexion/ Inscription</router-link> |
+      <router-link to="/inscription">Inscription</router-link> |
       <router-link to="/disconnect">Déconnexion</router-link>
     </div>
     <router-view/>

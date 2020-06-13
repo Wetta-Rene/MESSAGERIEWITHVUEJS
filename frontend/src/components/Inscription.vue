@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+const axios = require('axios').default;
+
 export default {
 
   name: 'Component_Inscription',
@@ -28,7 +29,7 @@ export default {
             pseudo: null,
             email: null,
             password: null,
-            level: null
+            level: null,
         }
     },
     methods:{
@@ -42,8 +43,17 @@ export default {
                         email: this.email,
                         password: this.password,
                         level: this.level})
-                .then(() => console.log("bienvenue"))
-                .catch(() => console.log("erreur signup"))
+                .then(function (response) {
+                    if(response.data.userInsert){ //si l'utilisateur est bien inscrit
+                        location.reload(); //on recharge la page
+                        //localstorage.setItem********
+                        console.log(response);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+                
             }  
         
     },
