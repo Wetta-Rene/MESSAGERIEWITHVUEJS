@@ -1,7 +1,8 @@
 <template>
     <div class="connexion">
         <h1>Inscription</h1>
-        <form @submit="formInscription">
+        <form @submit.prevent="formInscription">
+
             <label>Pseudo:</label><label><input type="text" v-model="pseudo" /></label>
             <label>Adresse mail:</label><label><input type="email" v-model="email" /></label>
             <label>Mot de passe:</label><label><input type="password" v-model="password" /></label>
@@ -24,22 +25,27 @@ export default {
   name: 'Component_Inscription',
     data () {
         return{
-            pseudo: '',
-            email: '',
-            password: '',
-            level: ''
+            pseudo: null,
+            email: null,
+            password: null,
+            level: null
         }
     },
     methods:{
-        formInscription (){
-            axios.post('http://localhost:3000/api/auth/signup', {
-                    pseudo: this.pseudo,
-                    email: this.email,
-                    password: this.password,
-                    level: this.level})
-            .then(() => console.log("bienvenue"))
-            .catch(() => console.log("erreur signup"))
-        }  
+       
+            formInscription (){
+                if (this.pseudo == null || this.email == null || this.password == null) {
+                    return false;
+                }
+                axios.post('http://localhost:3000/api/auth/signup', {
+                        pseudo: this.pseudo,
+                        email: this.email,
+                        password: this.password,
+                        level: this.level})
+                .then(() => console.log("bienvenue"))
+                .catch(() => console.log("erreur signup"))
+            }  
+        
     },
 }
 </script>
