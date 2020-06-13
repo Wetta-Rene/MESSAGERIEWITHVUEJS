@@ -6,26 +6,30 @@ var mysql = require('mysql');
 
 // enregistrement utilisateur avec hashage mot de passe
 exports.signup = (req, res, next) => {
-  const sqlHost = process.env.SQL_HOST;
-  const sqlUser = process.env.SQL_USER;
-  const sqlPassword = process.env.SQL_PASSWORD;
+  bcrypt.hash(req.body.password, 10) // hash du mot de passe
+    .then(hash => {
+          const sqlHost = process.env.SQL_HOST;
+          const sqlUser = process.env.SQL_USER;
+          const sqlPassword = process.env.SQL_PASSWORD;
 
-  var connection = mysql.createConnection({
-    host     : sqlHost,
-    user     : 'root',
-    password : 'root',
-    database : 'GROUPOMANIA',
-    port: '8889'
-  });
-   
-  connection.connect();
-   
-  connection.query("SELECT * FROM membre WHERE pseudo = 'req.body.email'", function (error, results, fields) {
-    if (error) throw error;
-    console.log(results.password);
-  });
+          var connection = mysql.createConnection({
+            host     : sqlHost,
+            user     : 'root',
+            password : 'root',
+            database : 'GROUPOMANIA',
+            port: '8889'
+          });
+          
+          connection.connect();
+          
+          connection.query("INSERT INTO membre (pseudo, email, password, level) VALUES ('req.body.pseudo', 'req.body.email', 'req.body.password', 'req.body.level')", function (error, results, fields) {
+            if (error) throw error;
+            console.log("ok-inscription");
+          });
 
-  connection.end();
+          connection.end();
+      });
+  
 
 
 /*
