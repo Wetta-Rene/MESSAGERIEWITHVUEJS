@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Accueil</router-link> |
-      <router-link to="/inscription">Inscription</router-link> 
+      <router-link to="/">Accueil</router-link>
+      <router-link to="/inscription"> | Inscription</router-link>
+      <router-link to="/tableau"> | Discussions</router-link> 
       <router-link to="/disconnect" v-if="userId"> | Déconnexion</router-link>
     </div>
     <router-view/>

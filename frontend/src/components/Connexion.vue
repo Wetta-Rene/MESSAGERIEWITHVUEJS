@@ -11,6 +11,7 @@
 </template>
 
 <script>
+const axios = require('axios').default;
 export default {
   name: 'Component_Connexion',
     data() {
@@ -19,11 +20,28 @@ export default {
             password: ''   
           }
     },
-    methods: {
-        formConnexion (){
-            console.log('form submitted')
-        },
-    },
+  methods:{
+    formConnexion (){
+      if (this.email == null || this.password == null) {
+          return false;
+      }
+      axios.post('http://localhost:3000/api/auth/login', {
+              email: this.email,
+              password: this.password,
+      })
+      .then(function (response) {
+          console.log(response);
+          if(response){ //si l'utilisateur est bien inscrit
+              window.location.replace("http://localhost:8080/tableau"); //on recharge la page
+              //localstorage.setItem********
+              console.log(response);
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+    } 
+  },
 }
 </script>
 

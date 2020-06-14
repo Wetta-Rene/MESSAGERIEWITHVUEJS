@@ -44,12 +44,13 @@ export default {
                         password: this.password,
                         level: this.level})
                 .then(function (response) {
-                    console.log(response);
-                    console.log(response.data.id);
+                    
                     if(response.data.id){ //si l'utilisateur est bien inscrit
-                        window.location.replace("http://localhost:8080/"); //on recharge la page
-                        //localstorage.setItem********
+                        window.location.replace("http://localhost:8080/"); //on change de page
                         console.log(response);
+                        console.log(response.data.id);
+                    }else{
+                        console.log("Utilisateur non inscrit");
                     }
                 })
                 .catch(function (error) {

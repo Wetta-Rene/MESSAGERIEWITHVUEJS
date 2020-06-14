@@ -18,6 +18,11 @@ Vue.use(VueRouter)
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewInscription.vue')
   },
+  {
+    path: '/tableau',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue')
+  }
 ]
 
 const router = new VueRouter({

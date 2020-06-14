@@ -4,7 +4,6 @@ const User = require('../models/User');
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 
-
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')";
@@ -24,61 +23,30 @@ exports.signup = (req, res, next) => {
   });
 };
 
-/*
-// enregistrement utilisateur avec hashage mot de passe
-exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-  .then(hash => {
-      var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')"
-
-      mysqlConnection.query(sql, function(err, results) {
-
-          console.log(err);
-          console.log(results);
-          console.log('------------------');
-
-          if (err) {
-            throw err;
-          }
-      });
 
 
-      
-      mysqlConnection.query(sql, (err, rows, fields) =>{
-        if(!err){
-          res.send(rows);
-          console.log(rows);
-        }
-        else{
-          console.log('Erreur SQL');
-        console.log(err);
+exports.login = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+    var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'"';
+      mysqlConnection.query(sql, function(err, result) {
+        console.log('------------------');
+        console.log(result);
+        console.log('------------------');
+
+        if (err) {
+          throw err;
+        } else {
+          ///res.sendStatus(200); 
+          res.status(200).json({result});
         }
       });
-  })
-  .then(() => res.status(201).json({ userInsert: true}))
-  .catch(error => res.status(500).json({ message: 'Error to connect' }));
+  });
 
-   */       
-
-  
-
-
-/*
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-      const user = new User({
-        email: req.body.email,
-        password: hash
-      });
-      user.save()
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ message: 'Error to save' }));
-    })
-    .catch(error => res.status(500).json({ message: 'Error to connect' }));
-    
 };
-*/
 
+
+
+/*
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -97,3 +65,4 @@ exports.login = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+*/
