@@ -44,7 +44,9 @@ export default {
                         password: this.password,
                         level: this.level})
                 .then(function (response) {
-                    if(response.data.userInsert){ //si l'utilisateur est bien inscrit
+                    console.log(response);
+                    console.log(response.data.id);
+                    if(response.data.id){ //si l'utilisateur est bien inscrit
                         window.location.replace("http://localhost:8080/"); //on recharge la page
                         //localstorage.setItem********
                         console.log(response);

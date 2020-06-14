@@ -2,38 +2,63 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 var mysql = require('mysql');
-var axios = require('axios');
+const mysqlConnection = require("../connexionSQL");
 
 
+exports.signup = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+    var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')";
 
+    mysqlConnection.query(sql, function(err, result) {
+      console.log('------------------');
+      console.log(result);
+      console.log('------------------');
 
+      if (err) {
+        throw err;
+      } else {
+        //res.sendStatus(200); 
+        res.status(200).json({ id: result.insertId});
+      }
+    });
+  });
+};
+
+/*
 // enregistrement utilisateur avec hashage mot de passe
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
-      const sqlHost = process.env.SQL_HOST;
+      var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')"
 
-        var connection = mysql.createConnection({
-          host     : sqlHost,
-          user     : 'root',
-          password : 'root',
-          database : 'GROUPOMANIA',
-          port: '8889'
-        });
+      mysqlConnection.query(sql, function(err, results) {
 
-          connection.connect();
-          
-          connection.query("INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')", function (error, results, fields) {
-            if (error) throw error;
-            console.log("ok-inscription");
-          });
+          console.log(err);
+          console.log(results);
+          console.log('------------------');
 
-          connection.end();
-    })
-    .then(() => res.status(201).json({ userInsert: true}))
-    .catch(error => res.status(500).json({ message: 'Error to connect' }));
+          if (err) {
+            throw err;
+          }
+      });
 
-          
+
+      
+      mysqlConnection.query(sql, (err, rows, fields) =>{
+        if(!err){
+          res.send(rows);
+          console.log(rows);
+        }
+        else{
+          console.log('Erreur SQL');
+        console.log(err);
+        }
+      });
+  })
+  .then(() => res.status(201).json({ userInsert: true}))
+  .catch(error => res.status(500).json({ message: 'Error to connect' }));
+
+   */       
 
   
 
@@ -50,9 +75,9 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(400).json({ message: 'Error to save' }));
     })
     .catch(error => res.status(500).json({ message: 'Error to connect' }));
-    */
+    
 };
-
+*/
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
