@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();  //chargement du module dotenv pour charger .env avec les mots de passe, config, etc...
 
 const path = require('path');
-const stuffRoutes = require('./routes/stuff');
+const discRoutes = require('./routes/discussion');
 const userRoutes = require('./routes/user');
 
 
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/sauces', stuffRoutes);
+app.use('/api/discussions', discRoutes);
 app.use('/api/auth', userRoutes);
  
 module.exports = app;
