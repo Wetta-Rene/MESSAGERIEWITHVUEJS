@@ -42,26 +42,24 @@ exports.createDiscussion = (req, res, next) => {
     //quelques const
     const expediteur = req.body.expediteur; //-> mettre localstorage de l'utilisateur loguer
     const destinataire = req.body.destinataire;
-    const dateCreate = new Date();
     const content = req.body.content; //-> a proteger
 
-    var sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2, create_at) VALUES ('"+expediteur+"','"+destinataire+"', '"+dateCreate+"')";
+    var sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2) VALUES ('"+expediteur+"','"+destinataire+"')";
 
     mysqlConnection.query(sqlinsertDiscussion, function(err, result) {
       console.log('------------------ log insert discussion');
       console.log(result);
       console.log('------------------ log insert discussion');
+      console.log(result.insertId);
 
         if (err) {
           throw err;
-        } else {
-          res.status(200).json({result});
         }
-    });
+    })
 
     const lastIdDiscussionTable = result.insertId; // on recupere le dernier id enregistrer dans la table discussion
     // ici discussion bien enregistree alors on enregistre le message
-    var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu, create_at, discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+dateCreate+"','"+lastIdDiscussionTable+"')";
+    var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu,discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+lastIdDiscussionTable+"')";
     mysqlConnection.query(sqlinsertMessage, function(err, result) {
       console.log('------------------ log insert message');
       console.log(result);
@@ -71,7 +69,7 @@ exports.createDiscussion = (req, res, next) => {
       } else {
         res.status(200).json({result});
       }
-    });
+    })
   }
 };
 
