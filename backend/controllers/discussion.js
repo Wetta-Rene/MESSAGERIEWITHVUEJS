@@ -4,7 +4,7 @@ var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 
 exports.getAllDiscussions = (req, res, next) => {
-  var sql = 'SELECT * FROM discussion WHERE utilisateur1 = 1';
+  var sql = 'SELECT * FROM discussion ';   //  -> mettre en fonction de l'utilisateur loguer
   mysqlConnection.query(sql, function(err, result) {
     console.log('------------------');
     console.log(result);
@@ -21,7 +21,8 @@ exports.getAllDiscussions = (req, res, next) => {
 
 
 exports.getDiscussion = (req, res, next) => {
-  var sql = 'SELECT * FROM message WHERE discussion=3';
+  const userId = req.params.id;   // --> id en parametre ?
+  var sql = 'SELECT * FROM message WHERE discussion= "'+userId+'"';
   mysqlConnection.query(sql, function(err, result) {
     console.log('------------------');
     console.log(result);
