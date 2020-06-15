@@ -4,7 +4,7 @@
       <router-link to="/">Accueil</router-link>
       <router-link to="/inscription"> | Inscription</router-link>
       <router-link to="/tableau"> | Discussions</router-link> 
-      <router-link to="/disconnect" v-if="userId"> | Déconnexion</router-link>
+      <router-link to="/disconnect"> | Déconnexion</router-link>
     </div>
     <router-view/>
   </div>

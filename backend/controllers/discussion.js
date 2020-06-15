@@ -3,43 +3,87 @@ const fs = require('fs');
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 
-exports.createSauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce);
-  delete sauceObject._id;
-    sauceObject.likes = 0;  //a l'objet sausse on ajoute like à 0
-    sauceObject.dislikes = 0; //a l'objet sauce on ajoute dislike
-    sauceObject.usersLiked = Array(); // déclaration tableau des utilisateur qui aiment
-    sauceObject.usersDisliked = Array(); // déclaration tableau des utilisateur qui aiment pas
-  const sauce = new Sauce({
-    ...sauceObject,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  });
+exports.getAllDiscussions = (req, res, next) => {
+  var sql = 'SELECT * FROM discussion WHERE utilisateur1 = 1';
+  mysqlConnection.query(sql, function(err, result) {
+    console.log('------------------');
+    console.log(result);
+    console.log('------------------');
 
-  sauce.save().then(
-    () => {
-      res.status(201).json({
-        message: 'Post saved successfully!'
-      });
+    if (err) {
+      throw err;
+    } else {
+      ///res.sendStatus(200); 
+      res.status(200).json({result});
     }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
+  });
 };
-exports.getOneSauce = (req, res, next) => {
-  Sauce.findOne({_id: req.params.id})
-      .then((sauce) => {res.status(200).json(sauce);})
-      .catch(
-    (error) => {
-      res.status(404).json({
-        error: error
-      });
+
+
+exports.getDiscussion = (req, res, next) => {
+  var sql = 'SELECT * FROM message WHERE discussion=3';
+  mysqlConnection.query(sql, function(err, result) {
+    console.log('------------------');
+    console.log(result);
+    console.log('------------------');
+
+    if (err) {
+      throw err;
+    } else {
+      ///res.sendStatus(200); 
+      res.status(200).json({result});
     }
-  );
+  });
 };
+
+exports.createDiscussion = (req, res, next) => {
+
+  if(req.body.destinataire != null || req.body.content != null ){
+    //quelques const
+    const expediteur = req.body.expediteur; //-> mettre localstorage de l'utilisateur loguer
+    const destinataire = req.body.destinataire;
+    const dateCreate = new Date();
+    const content = req.body.content; //-> a proteger
+
+    var sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2, create_at) VALUES ('"+expediteur+"','"+destinataire+"', '"+dateCreate+"')";
+
+    mysqlConnection.query(sqlinsertDiscussion, function(err, result) {
+      console.log('------------------ log insert discussion');
+      console.log(result);
+      console.log('------------------ log insert discussion');
+
+        if (err) {
+          throw err;
+        } else {
+          res.status(200).json({result});
+        }
+    });
+
+    const lastIdDiscussionTable = result.insertId; // on recupere le dernier id enregistrer dans la table discussion
+    // ici discussion bien enregistree alors on enregistre le message
+    var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu, create_at, discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+dateCreate+"','"+lastIdDiscussionTable+"')";
+    mysqlConnection.query(sqlinsertMessage, function(err, result) {
+      console.log('------------------ log insert message');
+      console.log(result);
+      console.log('------------------ log insert message');
+      if (err) {
+        throw err;
+      } else {
+        res.status(200).json({result});
+      }
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file ?
@@ -68,16 +112,4 @@ exports.deleteSauce = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-exports.getAllDiscussions = (req, res, next) => {
-  Sauce.find().then(
-    (sauces) => {
-      res.status(200).json(sauces);
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
-};
+

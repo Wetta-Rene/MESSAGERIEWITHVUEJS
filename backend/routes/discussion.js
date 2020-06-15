@@ -6,9 +6,11 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config')
 
 
-router.get('/', disCtrl.getAllDiscussions);  // afficher toutes les sauces de la base Mongo
-router.get('/:id', auth, disCtrl.getOneSauce);  // afficher une sauce unique
-router.post('/', auth, multer, disCtrl.createSauce);  // creer un nouvel objet sauce
+router.get('/', disCtrl.getAllDiscussions);  // affiche toutes les discussions de l'utilisateur
+router.get('/:id', disCtrl.getDiscussion);  // affiche tous les messages de la discussion choisi
+router.post('/new', disCtrl.createDiscussion);  // cree une nlle discussion
+
+
 router.put('/:id', auth, multer, disCtrl.modifySauce); // pour mettre a jour l'objet suivant user identifier
 router.delete('/:id', auth, disCtrl.deleteSauce);  // supprimer la sauce choisie
 

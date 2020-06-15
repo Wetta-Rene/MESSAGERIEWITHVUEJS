@@ -1,6 +1,5 @@
 <template>
-  <loader v-if="loading"/>
-  <div v-else>Le contenu de ta page</div>
+  <div>Le contenu de ta page</div>
 </template>
 
 <script>

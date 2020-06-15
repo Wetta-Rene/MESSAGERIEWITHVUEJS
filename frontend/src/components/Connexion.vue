@@ -32,7 +32,6 @@ export default {
       .then(function (response) {
           console.log(response);
           if(response){ //si l'utilisateur est bien inscrit
-              window.location.replace("http://localhost:8080/tableau"); //on recharge la page
               //localstorage.setItem********
               console.log(response);
           }
