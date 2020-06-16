@@ -18,7 +18,7 @@ const axios = require('axios').default;
 
 export default {
 
-  name: 'Component_Discussion',
+  name: 'DiscussionComponent',
     data () {
         return{
             expediteur: null,
@@ -37,13 +37,10 @@ export default {
                         destinataire: this.destinataire,
                         content: this.content})
                 .then(function (response) {
-                    
-                    if(response.data.id){ //si l'utilisateur est bien inscrit
-                        window.location.replace("http://localhost:8080/"); //on change de page
+                    console.log(response);
+                    if(response){ //
+                        window.location.replace("http://localhost:8080/tableau"); //on change de page -> faudrait charger id de la discussion cree
                         console.log(response);
-                        console.log(response.data.id);
-                    }else{
-                        console.log("Utilisateur non inscrit");
                     }
                 })
                 .catch(function (error) {

@@ -1,10 +1,14 @@
+//Imports
 const Sauce = require('../models/sauce');
 const fs = require('fs');
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
+const axios = require('axios');
+
+
 
 exports.getAllDiscussions = (req, res, next) => {
-  var sql = 'SELECT * FROM discussion ';   //  -> mettre en fonction de l'utilisateur loguer
+  var sql = 'SELECT * FROM discussion WHERE utilisateur1 = 1 OR utilisateur2 = 1';   //  -> mettre en fonction de l'utilisateur loguer
   mysqlConnection.query(sql, function(err, result) {
     console.log('------------------');
     console.log(result);
@@ -19,10 +23,9 @@ exports.getAllDiscussions = (req, res, next) => {
   });
 };
 
-
-exports.getDiscussion = (req, res, next) => {
-  const userId = req.params.id;   // --> id en parametre ?
-  var sql = 'SELECT * FROM message WHERE discussion= "'+userId+'"';
+//afficher les messages de la discussion numero:
+exports.getDiscussion = (req, res, next) => {   
+  var sql = 'SELECT * FROM message WHERE discussion = "'+req.body.discussion+'" ORDER BY id ASC';
   mysqlConnection.query(sql, function(err, result) {
     console.log('------------------');
     console.log(result);
@@ -38,7 +41,6 @@ exports.getDiscussion = (req, res, next) => {
 };
 
 exports.createDiscussion = (req, res, next) => {
-
   if(req.body.destinataire != null || req.body.content != null ){
     //quelques const
     const expediteur = req.body.expediteur; //-> mettre localstorage de l'utilisateur loguer
@@ -55,24 +57,34 @@ exports.createDiscussion = (req, res, next) => {
 
         if (err) {
           throw err;
+        }else{
+            const lastIdDiscussionTable = result.insertId; // on recupere le dernier id enregistrer dans la table discussion
+           
+            // ici discussion bien enregistree alors on enregistre le message
+            var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu, discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+lastIdDiscussionTable+"')";
+            mysqlConnection.query(sqlinsertMessage, function(err, resultat) {
+              console.log('------------------ log insert message');
+              console.log(resultat);
+              console.log('------------------ log insert message');
+              if (err) {
+                throw err;
+              } else {
+                console.log('LogMessage: '+resultat.insertId);
+                res.status(200).json({resultat});
+              }
+            })
         }
-    })
-
-    const lastIdDiscussionTable = result.insertId; // on recupere le dernier id enregistrer dans la table discussion
-    // ici discussion bien enregistree alors on enregistre le message
-    var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu,discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+lastIdDiscussionTable+"')";
-    mysqlConnection.query(sqlinsertMessage, function(err, result) {
-      console.log('------------------ log insert message');
-      console.log(result);
-      console.log('------------------ log insert message');
-      if (err) {
-        throw err;
-      } else {
-        res.status(200).json({result});
-      }
     })
   }
 };
+
+
+
+
+
+
+
+
 
 
 

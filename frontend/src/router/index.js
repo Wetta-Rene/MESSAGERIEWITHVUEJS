@@ -22,6 +22,11 @@ Vue.use(VueRouter)
     path: '/tableau',
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue')
+  },
+  {
+    path: '/wall',
+    name: 'wall',
+    component: () => import(/* webpackChunkName: "about" */ '../views/WallView.vue')
   }
 ]
 
