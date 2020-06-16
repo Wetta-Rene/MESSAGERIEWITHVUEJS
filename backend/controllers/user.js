@@ -26,23 +26,33 @@ exports.signup = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'"';
-      mysqlConnection.query(sql, function(err, result) {
-        console.log('------------------');
-        console.log(result);
-        console.log('------------------');
+  var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'" ';
 
-        if (err) {
-          throw err;
-        } else {
-          ///res.sendStatus(200); 
-          res.status(200).json({result});
+  mysqlConnection.query(sql, function(err, result) {
+    console.log('----Password in SQL-------');
+    console.log(result[0].password);
+    console.log('-----Password input by user-------------');
+    console.log(req.body.password);
+
+    if (err) {
+      throw err;
+      res.status(401).json({ error: 'Utilisateur non trouvé !' });
+    } else {  //utilisateur trouve
+      bcrypt.compare(req.body.password, result[0].password)
+      .then(valid => {
+        if (!valid) {
+          return res.status(401).json({ error: 'Mot de passe incorrect !' });
         }
-      });
+        res.status(200).json({userId: user._id,token: jwt.sign( { userId: user._id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
+      
+      })
+      .catch(error => res.status(500).json({ error }));
+    }
   });
+}
 
-};
+
+
 
 
 
