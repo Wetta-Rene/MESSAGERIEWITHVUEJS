@@ -26,7 +26,7 @@ Vue.use(VueRouter)
   {
     path: '/wall',
     name: 'wall',
-    component: () => import(/* webpackChunkName: "about" */ '../views/WallView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewWall.vue')
   }
 ]
 

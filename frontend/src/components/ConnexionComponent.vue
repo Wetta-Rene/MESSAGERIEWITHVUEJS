@@ -13,7 +13,7 @@
 <script>
 const axios = require('axios').default;
 export default {
-  name: 'Component_Connexion',
+  name: 'ConnexionComponent',
     data() {
           return{
             email: '',
@@ -30,10 +30,11 @@ export default {
               password: this.password,
       })
       .then(function (response) {
-          console.log(response);
           if(response){ //si l'utilisateur est bien inscrit
-              //localstorage.setItem********
-              console.log(response);
+              if(response.status == 200 && response.data.token){ // si reponse 200 et presence token tout est bon
+                localStorage.setItem('userId',response.data.userId) //on logue en memoire l'Id de l'utilisateur
+                localStorage.setItem('token',response.data.token) //on logue en memoire l'Id de l'utilisateur
+              }
           }
       })
       .catch(function (error) {
