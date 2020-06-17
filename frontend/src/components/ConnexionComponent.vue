@@ -30,10 +30,12 @@ export default {
               password: this.password,
       })
       .then(function (response) {
-          if(response){ //si l'utilisateur est bien inscrit
+          if(response){ //si l'utilisateur est bien peut etre bien inscrit
               if(response.status == 200 && response.data.token){ // si reponse 200 et presence token tout est bon
                 localStorage.setItem('userId',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('token',response.data.token) //on logue en memoire l'Id de l'utilisateur
+              }else{
+                localStorage.setItem("messageNav", "Adresse mail ou mot de passe incorrect !");
               }
           }
       })

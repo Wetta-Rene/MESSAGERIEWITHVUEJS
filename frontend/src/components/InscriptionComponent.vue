@@ -33,7 +33,6 @@ export default {
         }
     },
     methods:{
-       
             formInscription (){
                 if (this.pseudo == null || this.email == null || this.password == null) {
                     return false;
@@ -44,13 +43,11 @@ export default {
                         password: this.password,
                         level: this.level})
                 .then(function (response) {
-                    
-                    if(response.data.id){ //si l'utilisateur est bien inscrit
+                    if(response.status == 200 && response.data.id){ //si l'utilisateur est bien inscrit
+                        localStorage.setItem("messageNav", "Inscription ok, veuillez vous identifer !");
                         window.location.replace("http://localhost:8080/"); //on change de page
-                        console.log(response);
-                        console.log(response.data.id);
                     }else{
-                        console.log("Utilisateur non inscrit");
+                        localStorage.setItem("messageNav", "Erreur dans l'inscription !");
                     }
                 })
                 .catch(function (error) {

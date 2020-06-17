@@ -21,19 +21,13 @@ exports.signup = (req, res, next) => {
       }
     });
   });
-};
-
+}
 
 
 exports.login = (req, res, next) => {
   var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'" ';
 
   mysqlConnection.query(sql, function(err, result) {
-    console.log('----Password in SQL-------');
-    console.log(result[0].password);
-    console.log('-----Password input by user-------------');
-    console.log(req.body.password);
-
     if (err) {
       throw err;
       res.status(401).json({ error: 'Utilisateur non trouvé !' });

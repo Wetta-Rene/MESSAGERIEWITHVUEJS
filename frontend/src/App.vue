@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="divMessageNav">{{messageNav}}</div>
     <div id="nav">
       <router-link to="/">Accueil</router-link>
       <router-link to="/inscription"> | Inscription</router-link>
