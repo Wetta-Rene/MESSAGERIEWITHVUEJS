@@ -23,7 +23,7 @@ const axios = require('axios').default;
 
 export default {
 
-  name: 'Component_Inscription',
+  name: 'InscriptionComponent',
     data () {
         return{
             pseudo: null,

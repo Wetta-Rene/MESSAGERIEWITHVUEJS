@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <Component_Inscription />
+    <InscriptionComponent />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Component_Inscription from '@/components/Inscription.vue'
+import InscriptionComponent from '@/components/InscriptionComponent.vue'
 
 export default {
   name: 'InscriptionView',
   components: {
-    Component_Inscription
+    InscriptionComponent
   }
 }
 </script>
