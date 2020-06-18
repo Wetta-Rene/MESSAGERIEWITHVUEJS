@@ -10,10 +10,6 @@ const axios = require('axios');
 exports.getAllDiscussions = (req, res, next) => {
   var sql = 'SELECT * FROM discussion WHERE utilisateur1 = 1 OR utilisateur2 = 1';   //  -> mettre en fonction de l'utilisateur loguer
   mysqlConnection.query(sql, function(err, result) {
-    console.log('------------------');
-    console.log(result);
-    console.log('------------------');
-
     if (err) {
       throw err;
     } else {
@@ -24,17 +20,13 @@ exports.getAllDiscussions = (req, res, next) => {
 };
 
 //afficher les messages de la discussion numero:
-exports.getDiscussion = (req, res, next) => {   
-  var sql = 'SELECT * FROM message WHERE discussion = "'+req.body.discussion+'" ORDER BY id ASC';
+exports.getAllMessages = (req, res, next) => {  
+  const discussion = req.body.discussion;
+  var sql = 'SELECT * FROM message WHERE discussion = "'+discussion+'" ORDER BY id ASC';
   mysqlConnection.query(sql, function(err, result) {
-    console.log('------------------');
-    console.log(result);
-    console.log('------------------');
-
     if (err) {
       throw err;
     } else {
-      ///res.sendStatus(200); 
       res.status(200).json({result});
     }
   });
@@ -50,26 +42,16 @@ exports.createDiscussion = (req, res, next) => {
     var sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2) VALUES ('"+expediteur+"','"+destinataire+"')";
 
     mysqlConnection.query(sqlinsertDiscussion, function(err, result) {
-      console.log('------------------ log insert discussion');
-      console.log(result);
-      console.log('------------------ log insert discussion');
-      console.log(result.insertId);
-
         if (err) {
           throw err;
         }else{
             const lastIdDiscussionTable = result.insertId; // on recupere le dernier id enregistrer dans la table discussion
-           
             // ici discussion bien enregistree alors on enregistre le message
             var sqlinsertMessage = "INSERT INTO message (expediteur, destinataire, contenu, discussion) VALUES ('"+expediteur+"','"+destinataire+"','"+content+"','"+lastIdDiscussionTable+"')";
             mysqlConnection.query(sqlinsertMessage, function(err, resultat) {
-              console.log('------------------ log insert message');
-              console.log(resultat);
-              console.log('------------------ log insert message');
               if (err) {
                 throw err;
               } else {
-                console.log('LogMessage: '+resultat.insertId);
                 res.status(200).json({resultat});
               }
             })

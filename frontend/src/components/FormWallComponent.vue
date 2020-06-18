@@ -1,60 +1,44 @@
 <template>
-  <div class="connexion">
-      <h1>Afficher tous les messages d'une discussion</h1>
-      <form @submit="formWall">
-        <label>Discussion: </label><label><input type="discussion" v-model="discussion" /></label>
-        <button type="submit">Afficher</button>
-      </form>
-  </div>
+    <div class="connexion">
+        <h1>Tous les messages d'une discussion</h1>
+        <form @submit.prevent="affichageDesMessages">
+        <input type="text" name="discussion" v-model="discussion">
+        <button type="submit">Afficher les messages</button>
+        </form>
+        <ul>
+            <li v-for="post in posts" :key="post.id">{{ post }}</li>
+        </ul>
+    </div>
 </template>
 
 <script>
 const axios = require('axios').default;
-export default {
-  name: 'FormWallComponent',
-    data() {
-          return{
-            discussion: '',
-            info: null
-          }
-    },
-  methods:{
-    formWall (){
-      if (this.discussion == null) {
-          return false;
-      }
-      axios.get('http://localhost:3000/api/discussions/read', {
-              email: this.discussion
-      })
-      .then(function (response) {
-          if(response){ // si on retourne une reponse
 
-              //localstorage.setItem********
-              console.log(response);
-          }
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    } 
-  },
+export default {
+
+  name: 'DiscussionComponent',
+    data () {
+        return{
+            discussion: null,
+            posts: null
+        }        
+    },
+    methods:{
+            affichageDesMessages (){
+              if (this.discussion == null) {
+                    return false;
+                }
+                axios.post('http://localhost:3000/api/discussions/read',{
+                        discussion: this.discussion})
+                .then(reponse => this.posts = reponse.data)
+                .catch(erreur => console.log(erreur));
+            }
+        
+    },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

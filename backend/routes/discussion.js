@@ -7,7 +7,7 @@ const multer = require('../middleware/multer-config')
 
 
 router.get('/', disCtrl.getAllDiscussions);  // affiche toutes les discussions de l'utilisateur
-router.get('/read', disCtrl.getDiscussion);  // affiche tous les messages de la discussion choisi
+router.post('/read', disCtrl.getAllMessages);  // affiche tous les messages de la discussion choisi
 router.post('/new', disCtrl.createDiscussion);  // cree une nlle discussion
 
 router.put('/:id', auth, multer, disCtrl.modifySauce); // pour mettre a jour l'objet suivant user identifier
