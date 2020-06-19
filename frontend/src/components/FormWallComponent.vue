@@ -29,7 +29,7 @@ export default {
                     return false;
                 }
                 axios.get('http://localhost:3000/api/discussions/read/'+this.discussion)
-                .then(reponse => this.posts = reponse.data)
+                .then(reponse => this.posts = reponse.data)   
                 .catch(erreur => console.log(erreur));
             }
         

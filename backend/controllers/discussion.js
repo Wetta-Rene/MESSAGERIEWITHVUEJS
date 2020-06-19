@@ -14,7 +14,7 @@ exports.getAllDiscussions = (req, res, next) => {
       throw err;
     } else {
       ///res.sendStatus(200); 
-      res.status(200).json({result});
+      res.status(200).json({result});  
     }
   });
 };
@@ -27,6 +27,7 @@ exports.getAllMessages = (req, res, next) => {
     if (err) {
       throw err;
     } else {
+      console.log(result);
       res.status(200).json({result});
     }
   });
