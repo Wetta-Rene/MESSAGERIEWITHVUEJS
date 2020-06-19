@@ -21,7 +21,7 @@ exports.getAllDiscussions = (req, res, next) => {
 
 //afficher les messages de la discussion numero:
 exports.getAllMessages = (req, res, next) => {  
-  const discussion = req.body.discussion;
+  const discussion = req.params.discussion;
   var sql = 'SELECT * FROM message WHERE discussion = "'+discussion+'" ORDER BY id ASC';
   mysqlConnection.query(sql, function(err, result) {
     if (err) {

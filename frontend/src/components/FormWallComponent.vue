@@ -28,8 +28,7 @@ export default {
               if (this.discussion == null) {
                     return false;
                 }
-                axios.post('http://localhost:3000/api/discussions/read',{
-                        discussion: this.discussion})
+                axios.get('http://localhost:3000/api/discussions/read/'+this.discussion)
                 .then(reponse => this.posts = reponse.data)
                 .catch(erreur => console.log(erreur));
             }
