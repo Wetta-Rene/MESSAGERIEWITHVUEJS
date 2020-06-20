@@ -24,7 +24,7 @@ Vue.use(VueRouter)
     path: '/dashboard',
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue'),
-    meta: { requiresAuth: true }
+  
   },
   {
     path: '/wall/:id',
@@ -37,6 +37,7 @@ const router = new VueRouter({
   routes
 })
 
+/*
 //protection des url pour les utilisateurs logger uniquement
 router.beforeEach((to,from,next) => {
   if(to.meta.requiresAuth){
@@ -48,6 +49,6 @@ router.beforeEach((to,from,next) => {
   }
   next()
 })
-
+*/
 
 export default router

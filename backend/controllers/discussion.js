@@ -41,7 +41,7 @@ exports.createDiscussion = (req, res, next) => {
     const destinataire = req.body.destinataire;
     const content = req.body.content; //-> a proteger
 
-    var sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2) VALUES ('"+expediteur+"','"+destinataire+"')";
+    const sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2) VALUES ('"+expediteur+"','"+destinataire+"')";
 
     mysqlConnection.query(sqlinsertDiscussion, function(err, result) {
         if (err) {
@@ -62,7 +62,27 @@ exports.createDiscussion = (req, res, next) => {
   }
 };
 
+exports.deleteDiscussionAndMessages = (req, res, next) => {
+  const idDiscussion = req.params.idDiscussion;
+  const sqlDeleteDiscussion = "DELETE FROM discussion WHERE id= '"+idDiscussion+"' ";
+  const sqlDeleteMessagesAfterDiscussionTable = "DELETE FROM message WHERE discussion= '"+idDiscussion+"' ";
 
+  mysqlConnection.query(sqlDeleteDiscussion, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      console.log("Discussion supprimée dans sql...")
+      mysqlConnection.query(sqlDeleteMessagesAfterDiscussionTable, function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log("Messages de la discussion supprimés");
+          res.status(200).json("Discussion et messages suppriimés");
+        }
+      });
+    }
+  })
+};
 
 
 

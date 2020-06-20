@@ -14,7 +14,7 @@
             <h2>Liste de vos discussions:</h2>
             <button v-on:click="newConversationToCreate ()">Créer une discussion</button>
             <ul>
-                <li v-for="post in posts" :key="post.id"><a href="http://localhost:8080/wall/" >Discussion avec utilisateur {{ post.utilisateur2 }}</a></li>
+                <li v-for="post in posts" :key="post.id"><a href="http://localhost:8080/wall/" >Discussion avec utilisateur {{ post.utilisateur2 }}</a><button v-on:click="deleteDiscussionAndMessages (post.id)">Supprimer la conversation</button></li>
                                                     
             </ul>
         </div>
@@ -51,7 +51,11 @@ export default {
                         expediteur: this.expediteur,
                         destinataire: this.destinataire,
                         content: this.content})
-                .then(reponse => this.posts = reponse.data.RowDataPacket)
+                .then(function (response) {
+                    if(response.status == 200){ // tout est bon dans la suppression cote bdd
+                        window.location.replace("http://localhost:8080/dashboard"); // on retourne a la page tableau de bord pour "recharge"
+                    }  
+                })
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -61,7 +65,17 @@ export default {
                 axios.get('http://localhost:3000/api/discussions/'+localStorage.authUser)  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.posts = reponse.data)
                 .catch(erreur => console.log(erreur));
+            },
+            deleteDiscussionAndMessages (idDiscussion) {
+                axios.delete('http://localhost:3000/api/discussions/'+idDiscussion)  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
+                .then(function (response) {
+                    if(response.status == 200){ // tout est bon dans la suppression cote bdd
+                        window.location.reload(); // on recharge la page pour mise a jour des discussions restante
+                    }  
+                })
+                .catch(erreur => console.log(erreur));
             }
+            
     },
     beforeMount(){ 
         this.affichageDesDiscussions() 
