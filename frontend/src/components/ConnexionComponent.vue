@@ -1,7 +1,7 @@
 <template>
   <div class="connexion">
       <h1>Connexion</h1>
-      <form @submit="formConnexion">
+      <form @submit.prevent="formConnexion">
         <label>Adresse mail:</label><label><input type="email" v-model="email" /></label>
         <label>Mot de passe:</label><label><input type="password" v-model="password" /></label>
         <button type="submit">Connexion</button>
@@ -32,8 +32,9 @@ export default {
       .then(function (response) {
           if(response){ //si l'utilisateur est bien peut etre bien inscrit
               if(response.status == 200 && response.data.token){ // si reponse 200 et presence token tout est bon
-                localStorage.setItem('userId',response.data.userId) //on logue en memoire l'Id de l'utilisateur
-                localStorage.setItem('token',response.data.token) //on logue en memoire l'Id de l'utilisateur
+                localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
+                localStorage.setItem('authUserToken',response.data.token) //on logue en memoire l'Id de l'utilisateur
+                window.location.replace("http://localhost:8080/dashboard"); //on va à la page des discussions
               }else{
                 localStorage.setItem("messageNav", "Adresse mail ou mot de passe incorrect !");
               }

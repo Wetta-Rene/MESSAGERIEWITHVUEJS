@@ -8,13 +8,14 @@ const axios = require('axios');
 
 
 exports.getAllDiscussions = (req, res, next) => {
-  var sql = 'SELECT * FROM discussion WHERE utilisateur1 = 1 OR utilisateur2 = 1';   //  -> mettre en fonction de l'utilisateur loguer
+  const userID = req.params.userId;
+  var sql = 'SELECT * FROM discussion WHERE utilisateur1 = "'+userID+'" OR utilisateur2 = "'+userID+'" ';   //  -> mettre en fonction de l'utilisateur loguer
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
     } else {
       ///res.sendStatus(200); 
-      res.status(200).json({result});  
+      res.status(200).json(result);  
     }
   });
 };
@@ -28,7 +29,7 @@ exports.getAllMessages = (req, res, next) => {
       throw err;
     } else {
       console.log(result);
-      res.status(200).json({result});
+      res.status(200).json(result);
     }
   });
 };

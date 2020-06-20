@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <div id="infoConnexionToUseApi">Vous devez être connecté.e pour utiliser l'application !</div>
       <FormWallComponent />
   </div>
 </template>

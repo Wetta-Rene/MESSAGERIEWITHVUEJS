@@ -2,15 +2,37 @@
   <div id="app">
     <div id="divMessageNav">{{messageNav}}</div>
     <div id="nav">
-      <router-link to="/">Accueil</router-link>
-      <router-link to="/inscription"> | Inscription</router-link>
-      <router-link to="/tableau"> | Discussions</router-link>
-      <router-link to="/wall"> | Detail discussion</router-link> 
-      <router-link to="/disconnect"> | Déconnexion</router-link>
+      <router-link v-if="!Logged" to="/">Accueil</router-link>
+      <router-link v-if="!Logged" to="/inscription"> | Inscription</router-link>
+      <router-link v-if="Logged" to="/dashboard">Tableau de bord</router-link>
+      <router-link v-if="Logged" to="/wall"> | Detail discussion </router-link>
+      <button v-if="Logged" v-on:click="logOut ()">Déconnexion</button>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+    data () {
+        return{
+            Logged: false
+        }        
+    },
+    methods:{
+      logOut (){
+        localStorage.clear(); // on vide la memoire
+        window.location.replace("http://localhost:8080/"); //on va à la page d'accueil
+      }
+    },
+    beforeMount (){ 
+      if(localStorage.authUser && localStorage.authUserToken){
+        this.Logged = true
+      }
+    }
+}
+</script>
 
 <style lang="scss">
 #app {

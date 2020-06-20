@@ -13,13 +13,11 @@
 
 <script>
 const axios = require('axios').default;
-
 export default {
-
   name: 'DiscussionComponent',
     data () {
         return{
-            discussion: null,
+            discussion: 2,
             posts: null
         }        
     },
@@ -32,12 +30,13 @@ export default {
                 .then(reponse => this.posts = reponse.data)   
                 .catch(erreur => console.log(erreur));
             }
-        
     },
+    beforeMount(){ 
+    this.affichageDesMessages() 
+    }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 </style>

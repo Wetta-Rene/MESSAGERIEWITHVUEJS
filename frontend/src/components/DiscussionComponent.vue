@@ -1,17 +1,23 @@
 <template>
-    <div class="connexion">
-        <h1>Nouvelle conversation</h1>
-        <form @submit.prevent="formDiscussion">
-            <label>Expéditeur (3):</label><label><input type="text" v-model="expediteur" /></label>
-            <label>Destinataire (8):</label><label><input type="text" v-model="destinataire" /></label>
-            <label>Message:</label><label><input type="textarea" v-model="content" /></label>
-            <button type="submit">Créer la discussion</button>
-        </form>
-
-        <button v-on:click="affichageDesDiscussions ()">Afficher les discussions</button>
-        <ul>
-            <li v-for="post in posts" :key="post.id">{{ post }}</li>
-        </ul>
+    <div class="pageDesDiscussions">
+        <div class="partieNewDiscussion" v-if="newConversation">
+            <button v-on:click="newConversationToCancel ()">Retour aux discussions</button>
+            <h2>Nouvelle conversation</h2>
+            <form @submit.prevent="formDiscussion">
+                <label>Expéditeur (3):</label><label><input type="text" v-model="expediteur" /></label>
+                <label>Destinataire (8):</label><label><input type="text" v-model="destinataire" /></label>
+                <label>Message:</label><label><input type="textarea" v-model="content" /></label>
+                <button type="submit">Créer la discussion</button>
+            </form>
+        </div>
+        <div class="partieListeDesDiscussions" v-else>
+            <h2>Liste de vos discussions:</h2>
+            <button v-on:click="newConversationToCreate ()">Créer une discussion</button>
+            <ul>
+                <li v-for="post in posts" :key="post.id"><a href="http://localhost:8080/wall/" >Discussion avec utilisateur {{ post.utilisateur2 }}</a></li>
+                                                    
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -26,10 +32,17 @@ export default {
             expediteur: null,
             destinataire: null,
             content: null ,
-            posts: null
+            posts: null,
+            newConversation: false
         }        
     },
     methods:{
+            newConversationToCreate (){
+                this.newConversation = true
+            },
+            newConversationToCancel (){
+                this.newConversation = false
+            },
             formDiscussion (){
                 if (this.expediteur == null || this.destinataire == null || this.content == null) {
                     return false;
@@ -45,12 +58,14 @@ export default {
                 
             },
             affichageDesDiscussions (){
-                axios.get('http://localhost:3000/api/discussions/')  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
+                axios.get('http://localhost:3000/api/discussions/'+localStorage.authUser)  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.posts = reponse.data)
                 .catch(erreur => console.log(erreur));
             }
-        
     },
+    beforeMount(){ 
+        this.affichageDesDiscussions() 
+    }
 }
 </script>
 

@@ -45,7 +45,7 @@ export default {
                 .then(function (response) {
                     if(response.status == 200 && response.data.id){ //si l'utilisateur est bien inscrit
                         localStorage.setItem("messageNav", "Inscription ok, veuillez vous identifer !");
-                        window.location.replace("http://localhost:8080/"); //on change de page
+                        window.location.replace("http://localhost:8080/"); //on va a la page de connexion
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans l'inscription !");
                     }

@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
+
+
   const routes = [
   {
     path: '/',
@@ -19,12 +21,13 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewInscription.vue')
   },
   {
-    path: '/tableau',
+    path: '/dashboard',
     name: 'dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue'),
+    meta: { requiresAuth: true }
   },
   {
-    path: '/wall',
+    path: '/wall/:id',
     name: 'wall',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewWall.vue')
   }
@@ -33,5 +36,18 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes
 })
+
+//protection des url pour les utilisateurs logger uniquement
+router.beforeEach((to,from,next) => {
+  if(to.meta.requiresAuth){
+      if(localStorage.authUser && localStorage.authUserToken){
+        next()
+      }else{
+        next({name: 'Home'})
+      }
+  }
+  next()
+})
+
 
 export default router
