@@ -6,8 +6,8 @@
             <h2>Une idée pour vos collègues ?</h2>
                <form @submit.prevent="formPostToWall">
                     <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
-                    <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?"/></label>
-                    <label>Image:</label><label><input type="password" v-model="image" /></label>
+                    <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?" required/></label>
+                    <label>Image:</label><label><input type="password" v-model="imageUrl" /></label>
                     <button type="submit">Poster et voir sur le WALL !</button>
                 </form>                                  
         </div>
@@ -17,10 +17,12 @@
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">
                         <div class="post-sousElement">{{ wallpost.title }}</div>
-                        <div class="post-sousElement">Ecrit par: {{ wallpost.user }} le {{ wallpost.create_at }} </div>
+                        <div class="post-sousElement">Ecrit par: {{ wallpost.userId }} le {{ wallpost.create_at }} </div>
                     </div>
                     <div class="post-element">{{ wallpost.content }}</div>
-                    <div class="post-element">{{ wallpost.urlImage }}</div>
+                    
+                    <div class="post-element" v-if="wallpost.urlImage !== 'null' ">{{ wallpost.urlImage }}</div>
+                    
                 </article>                                    
         </div>
     </div>
@@ -36,7 +38,7 @@ export default {
         return{
             title: null,
             content: null,
-            image: null,
+            imageUrl: null,
             userId: null,
             wallPosts: null,
             formWallActif: false
@@ -45,7 +47,7 @@ export default {
     mounted() {
         if(localStorage.authUser) {
         this.userId = localStorage.authUser;
-    }
+        }
     },
     methods:{
             affichageWall (){
@@ -66,11 +68,12 @@ export default {
                 axios.post('http://localhost:3000/api/wall/new-post', {
                         title: this.title,
                         content: this.content,
-                        image: this.image,
+                        imageUrl: this.imageUrl,
                         userId: this.userId}) //identifiant en localstorage
                 .then(function (response) {
-                    if(response.status == 200 && response.data.id){ //= post bien inscrit dans la base sql
-                        this.formWallActif = false 
+                    console.log(response)
+                    if(response.status == 200){ //= post bien inscrit dans la base sql
+                        window.location.reload(); 
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans le traitement sur le serveur !");
                     }
