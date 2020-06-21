@@ -26,7 +26,7 @@ const axios = require('axios').default;
 
 export default {
 
-  name: 'DiscussionComponent',
+  name: 'DashboardComponent',
     data () {
         return{
             expediteur: null,

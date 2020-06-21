@@ -1,6 +1,17 @@
 <template>
     <div class="wall">
-        <div class="wallPartiePosts">
+        <button v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
+        <button v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
+        <div class="wallPartieForm" v-if="formWallActif">
+            <h2>Une idée pour vos collègues ?</h2>
+               <form @submit.prevent="formPostToWall">
+                    <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
+                    <label>Votre message*:</label><label><input type="email" v-model="content" placeholder="Que voulez vous dire ?"/></label>
+                    <label>Image:</label><label><input type="password" v-model="image" /></label>
+                    <button type="submit">Poster et voir sur le WALL !</button>
+                </form>                                  
+        </div>
+        <div class="wallPartiePosts" v-if="!formWallActif">
             <h2>Groupomania's Wall</h2>
 
                 <article class="articlePost" v-for="post in posts" :key="post.id"> 
@@ -27,7 +38,7 @@ export default {
             destinataire: null,
             content: null ,
             posts: null,
-            newConversation: false
+            formWallActif: false
         }        
     },
     methods:{
@@ -35,7 +46,13 @@ export default {
                 axios.get('http://localhost:3000/api/wall/')  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.posts = reponse.data)
                 .catch(erreur => console.log(erreur));
-            }  
+            },
+            newPost (){
+                this.formWallActif = true 
+            },
+            cancelPost (){
+                this.formWallActif = false 
+            },
     },
     beforeMount(){ 
         this.affichageWall() 

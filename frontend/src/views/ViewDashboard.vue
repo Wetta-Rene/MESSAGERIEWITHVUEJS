@@ -1,17 +1,17 @@
 <template>
   <div class="tableauDeBord">
-    <DiscussionComponent />
+    <DashboardComponent />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import DiscussionComponent from '@/components/DiscussionComponent.vue'
+import DashboardComponent from '@/components/DashboardComponent.vue'
 
 export default {
   name: 'DashboardView',
   components: {
-    DiscussionComponent
+    DashboardComponent
   }
 }
 </script>
