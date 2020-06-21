@@ -6,7 +6,7 @@
             <h2>Une idée pour vos collègues ?</h2>
                <form @submit.prevent="formPostToWall">
                     <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
-                    <label>Votre message*:</label><label><input type="email" v-model="content" placeholder="Que voulez vous dire ?"/></label>
+                    <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?"/></label>
                     <label>Image:</label><label><input type="password" v-model="image" /></label>
                     <button type="submit">Poster et voir sur le WALL !</button>
                 </form>                                  
@@ -14,13 +14,13 @@
         <div class="wallPartiePosts" v-if="!formWallActif">
             <h2>Groupomania's Wall</h2>
 
-                <article class="articlePost" v-for="post in posts" :key="post.id"> 
+                <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">
-                        <div class="post-sousElement">{{ post.title }}</div>
-                        <div class="post-sousElement">Ecrit par: {{ post.user }} le {{ post.create_at }} </div>
+                        <div class="post-sousElement">{{ wallpost.title }}</div>
+                        <div class="post-sousElement">Ecrit par: {{ wallpost.user }} le {{ wallpost.create_at }} </div>
                     </div>
-                    <div class="post-element">{{ post.content }}</div>
-                    <div class="post-element">{{ post.urlImage }}</div>
+                    <div class="post-element">{{ wallpost.content }}</div>
+                    <div class="post-element">{{ wallpost.urlImage }}</div>
                 </article>                                    
         </div>
     </div>
@@ -34,17 +34,23 @@ export default {
   name: 'WallComponent',
     data () {
         return{
-            expediteur: null,
-            destinataire: null,
-            content: null ,
-            posts: null,
+            title: null,
+            content: null,
+            image: null,
+            userId: null,
+            wallPosts: null,
             formWallActif: false
         }        
+    },
+    mounted() {
+        if(localStorage.authUser) {
+        this.userId = localStorage.authUser;
+    }
     },
     methods:{
             affichageWall (){
                 axios.get('http://localhost:3000/api/wall/')  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
-                .then(reponse => this.posts = reponse.data)
+                .then(reponse => this.wallPosts = reponse.data)
                 .catch(erreur => console.log(erreur));
             },
             newPost (){
@@ -53,6 +59,27 @@ export default {
             cancelPost (){
                 this.formWallActif = false 
             },
+            formPostToWall (){
+                if (this.title == null || this.content == null) { //si input titre et content nul pas de validation
+                    return false;
+                }
+                axios.post('http://localhost:3000/api/wall/new-post', {
+                        title: this.title,
+                        content: this.content,
+                        image: this.image,
+                        userId: this.userId}) //identifiant en localstorage
+                .then(function (response) {
+                    if(response.status == 200 && response.data.id){ //= post bien inscrit dans la base sql
+                        this.formWallActif = false 
+                    }else{
+                        localStorage.setItem("messageNav", "Erreur dans le traitement sur le serveur !");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+                
+            }  
     },
     beforeMount(){ 
         this.affichageWall() 
