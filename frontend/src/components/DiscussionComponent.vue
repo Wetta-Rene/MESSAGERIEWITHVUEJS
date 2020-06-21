@@ -14,7 +14,7 @@
             <h2>Liste de vos discussions:</h2>
             <button v-on:click="newConversationToCreate ()">Créer une discussion</button>
             <ul>
-                <li v-for="post in posts" :key="post.id"><a href="http://localhost:8080/wall/" >Discussion avec utilisateur {{ post.utilisateur2 }}</a><button v-on:click="deleteDiscussionAndMessages (post.id)">Supprimer la conversation</button></li>
+                <li v-for="post in posts" :key="post.id"><a href="http://localhost:8080/detailDiscussion/" > Discussion avec utilisateur {{ post.utilisateur2 }}</a> <button v-on:click="deleteDiscussionAndMessages (post.id)">Supprimer la conversation</button></li>
                                                     
             </ul>
         </div>

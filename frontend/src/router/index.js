@@ -27,7 +27,12 @@ Vue.use(VueRouter)
   
   },
   {
-    path: '/wall/:id',
+    path: '/detailDiscussion/:id',
+    name: 'detailDiscussion',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDetailMessage.vue')
+  },
+  {
+    path: '/wall',
     name: 'wall',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewWall.vue')
   }

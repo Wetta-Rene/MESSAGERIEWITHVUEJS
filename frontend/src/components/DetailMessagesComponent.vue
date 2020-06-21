@@ -14,7 +14,7 @@
 <script>
 const axios = require('axios').default;
 export default {
-  name: 'DiscussionComponent',
+  name: 'DetailMessagesComponent',
     data () {
         return{
             discussion: 2,

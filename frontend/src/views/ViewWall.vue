@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-      <FormWallComponent />
+  <div class="wall">
+    <WallComponent />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import FormWallComponent from '@/components/FormWallComponent.vue'
-
+import WallComponent from '@/components/WallComponent.vue'
 
 export default {
-  name: 'InscriptionView',
+  name: 'WallView',
   components: {
-    FormWallComponent
+    WallComponent
   }
 }
 </script>

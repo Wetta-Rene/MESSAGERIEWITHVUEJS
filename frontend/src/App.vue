@@ -5,7 +5,8 @@
       <router-link v-if="!Logged" to="/">Accueil</router-link>
       <router-link v-if="!Logged" to="/inscription"> | Inscription</router-link>
       <router-link v-if="Logged" to="/dashboard">Tableau de bord</router-link>
-      <router-link v-if="Logged" to="/wall"> | Detail discussion </router-link>
+      <router-link v-if="Logged" to="/wall"> | Groupomania's WALL </router-link>
+      <router-link v-if="Logged" to="/detailDiscussion"> | Detail discussion </router-link>
       <button v-if="Logged" v-on:click="logOut ()">Déconnexion</button>
     </div>
     <router-view/>

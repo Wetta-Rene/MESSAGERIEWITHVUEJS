@@ -34,7 +34,7 @@ export default {
               if(response.status == 200 && response.data.token){ // si reponse 200 et presence token tout est bon
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('authUserToken',response.data.token) //on logue en memoire l'Id de l'utilisateur
-                window.location.replace("http://localhost:8080/dashboard"); //on va à la page des discussions
+                window.location.replace("/dashboard"); //on va à la page des discussions
               }else{
                 localStorage.setItem("messageNav", "Adresse mail ou mot de passe incorrect !");
               }
