@@ -2,10 +2,15 @@
     <div class="wall">
         <div class="wallPartiePosts">
             <h2>Groupomania's Wall</h2>
-            <ul>
-                <li v-for="post in posts" :key="post.id"> {{ post.utilisateur2 }}</li>
-                                                    
-            </ul>
+
+                <article class="articlePost" v-for="post in posts" :key="post.id"> 
+                    <div class="post-element">
+                        <div class="post-sousElement">{{ post.title }}</div>
+                        <div class="post-sousElement">Ecrit par: {{ post.user }} le {{ post.create_at }} </div>
+                    </div>
+                    <div class="post-element">{{ post.content }}</div>
+                    <div class="post-element">{{ post.urlImage }}</div>
+                </article>                                    
         </div>
     </div>
 </template>
@@ -27,7 +32,7 @@ export default {
     },
     methods:{
             affichageWall (){
-                axios.get('http://localhost:3000/api/wall/')  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
+                axios.get('http://localhost:3000/api/wall/')  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.posts = reponse.data)
                 .catch(erreur => console.log(erreur));
             }  

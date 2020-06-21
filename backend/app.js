@@ -5,7 +5,7 @@ require('dotenv').config();  //chargement du module dotenv pour charger .env ave
 const path = require('path');
 const discRoutes = require('./routes/discussion');
 const userRoutes = require('./routes/user');
-
+const wallRoutes = require('./routes/wall');
 
 const app = express();
 
@@ -19,7 +19,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/discussions', discRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/api/discussions', discRoutes); // chemins des discussions
+app.use('/api/auth', userRoutes); // chemins utilisateur
+app.use('/api/wall', wallRoutes); // chemin du wall Groupomania
  
 module.exports = app;
