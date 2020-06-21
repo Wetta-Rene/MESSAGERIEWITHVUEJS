@@ -11,6 +11,7 @@ router.get('/read/:discussion', disCtrl.getAllMessages);  // affiche tous les me
 router.post('/new', disCtrl.createDiscussion);  // cree une nlle discussion
 router.delete('/:idDiscussion', disCtrl.deleteDiscussionAndMessages);  // supprimer la discussion et les messages de la discussion
 
+
 router.put('/:id', auth, multer, disCtrl.modifySauce); // pour mettre a jour l'objet suivant user identifier
 
 

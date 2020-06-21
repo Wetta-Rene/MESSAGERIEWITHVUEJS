@@ -45,8 +45,17 @@ exports.login = (req, res, next) => {
   });
 }
 
-
-
+exports.getAllUsers = (req, res, next) => {
+  var sql = 'SELECT * FROM membre';   //  -> on cherche tous les membres...
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      ///res.sendStatus(200); 
+      res.status(200).json(result);  
+    }
+  });
+}
 
 
 

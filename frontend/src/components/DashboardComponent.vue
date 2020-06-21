@@ -4,8 +4,12 @@
             <button v-on:click="newConversationToCancel ()">Retour aux discussions</button>
             <h2>Nouvelle conversation</h2>
             <form @submit.prevent="formDiscussion">
-                <label>Expéditeur (3):</label><label><input type="text" v-model="expediteur" /></label>
-                <label>Destinataire (8):</label><label><input type="text" v-model="destinataire" /></label>
+                <label><button v-on:click="affichageDesDestinataires ()">Mettre à jour liste des destinataires >></button></label>
+                <label>
+                    <select v-model="destinataire">
+                        <option  v-for="user in destinataires" :key="user.id" value="">{{user.pseudo}}</option>
+                    </select> 
+                    </label>
                 <label>Message:</label><label><input type="textarea" v-model="content" /></label>
                 <button type="submit">Créer la discussion</button>
             </form>
@@ -33,8 +37,14 @@ export default {
             destinataire: null,
             content: null ,
             posts: null,
-            newConversation: false
+            newConversation: false,
+            destinataires: null  // pour afficher la liste des destinataires auquel pouvoir ecrire message
         }        
+    },
+    mounted() {
+        if(localStorage.authUser) {
+        this.expediteur = localStorage.authUser;
+        }
     },
     methods:{
             newConversationToCreate (){
@@ -74,11 +84,16 @@ export default {
                     }  
                 })
                 .catch(erreur => console.log(erreur));
+            },
+            affichageDesDestinataires (){
+                axios.get('http://localhost:3000/api/auth/allUsers')  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
+                .then(reponse => this.destinataires = reponse.data)
+                .catch(erreur => console.log(erreur));
             }
             
     },
     beforeMount(){ 
-        this.affichageDesDiscussions() 
+        this.affichageDesDiscussions() ;
     }
 }
 </script>
