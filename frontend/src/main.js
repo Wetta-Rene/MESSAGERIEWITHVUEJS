@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import "bootswatch/dist/journal/bootstrap.min.css"; //bootstrat theme from bootswatch
 
-import 'bootstrap/dist/css/bootstrap.css'
+
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

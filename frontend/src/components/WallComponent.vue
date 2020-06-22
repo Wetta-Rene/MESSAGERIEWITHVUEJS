@@ -1,9 +1,11 @@
 <template>
     <div class="wall">
-        <button v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
-        <button v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
+        <h1>Groupomania's Wall</h1>
+        <div class="wallButton">
+            <button v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
+            <button v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
+        </div>
         <div class="wallPartieForm" v-if="formWallActif">
-            <h2>Une idée pour vos collègues ?</h2>
                <form @submit.prevent="formPostToWall">
                     <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
                     <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?" required/></label>
@@ -12,15 +14,10 @@
                 </form>                                  
         </div>
         <div class="wallPartiePosts" v-if="!formWallActif">
-            <h2>Groupomania's Wall</h2>
-
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
-                    <div class="post-element">
-                        <div class="post-sousElement">{{ wallpost.title }}</div>
-                        <div class="post-sousElement">Ecrit par: {{ wallpost.userId }} le {{ wallpost.create_at }} </div>
-                    </div>
+                    <div class="post-element">{{ wallpost.title }}</div>
+                    <div class="post-element">Ecrit par: {{ wallpost.userId }} le {{ wallpost.create_at }} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
-                    
                     <div class="post-element" v-if="wallpost.urlImage !== 'null' ">{{ wallpost.urlImage }}</div>
                     
                 </article>                                    
@@ -90,4 +87,44 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.wall{
+    width: 98%;
+    margin: auto;
+        h1{
+            margin-top: 2%;
+        }
+}
+.wallButton{
+    margin-top: 10%;
+}
+.wallPartiePosts{
+    margin-top: 4%;
+}
+.articlePost{
+    border: 2px solid black;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.post-element{
+    flex-basis: 100%;
+}
+.post-element:nth-child(1){ //div titre
+    font-size: 1.4em;
+    text-align: left; 
+    padding-left: 1%;
+}
+.post-element:nth-child(2){ //div auteur + date
+    font-size: 0.8em;
+    text-align: right;
+    padding-right: 1%;
+    border-top: 1px solid black;
+}
+.post-element:nth-child(3){ //div texte
+    font-size: 1.6em;
+    border-top: 1px solid black;
+}
+.post-element:nth-child(4){ //div texte
+    border-top: 1px solid black;
+}
 </style>

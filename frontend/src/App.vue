@@ -1,17 +1,41 @@
 <template>
   <div id="app">
     <div id="divMessageNav">{{messageNav}}</div>
-      <b-navbar-brand href="#">
-        <img src="https://placekitten.com/g/30/30" alt="LogoGroupomania">
-      </b-navbar-brand>
-      <b-navbar type="dark">
-        <router-link v-if="!Logged" to="/">Accueil</router-link>
-        <router-link v-if="!Logged" to="/inscription"> | Inscription</router-link>
-        <router-link v-if="Logged" to="/dashboard">Tableau de bord</router-link>
-        <router-link v-if="Logged" to="/wall"> | Groupomania's WALL </router-link>
-        <router-link v-if="Logged" to="/detailDiscussion"> | Detail discussion </router-link>
-        <button v-if="Logged" v-on:click="logOut ()">Déconnexion</button>
-      </b-navbar>
+    <b-navbar-brand href="#">
+      <img src="/assets/icon-above-font.png" alt="LogoGroupomania">
+    </b-navbar-brand>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/">Groupomania</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" v-if="!Logged">
+            <router-link to="/"><button class="btn btn-primary">Accueil</button></router-link>
+          </li>
+          <li class="nav-item" v-if="!Logged">
+            <router-link to="/inscription"><button class="btn btn-primary">Inscription</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <router-link to="/dashboard"><button class="btn btn-primary">Tableau de bord</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <router-link to="/wall"><button class="btn btn-primary">Groupomania's WALL</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <router-link to="/detailDiscussion"><button class="btn btn-primary">Detail discussion</button></router-link>
+          </li>
+        </ul>
+        <b-dropdown v-if="Logged" class="form-inline my-2 my-lg-0" id="dropdown-dropleft" dropleft text="Options" variant="primary">
+          <b-dropdown-item>Mon profil</b-dropdown-item>
+          <b-dropdown-item>Suppression du compte</b-dropdown-item>
+          <b-dropdown-item v-on:click="logOut ()">Déconnexion</b-dropdown-item>
+        </b-dropdown>
+      </div>
+    </nav>
+
     <router-view/>
   </div>
 </template>
