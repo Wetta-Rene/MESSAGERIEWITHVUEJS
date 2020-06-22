@@ -1,9 +1,12 @@
 <template>
     <div class="wall">
         <h1>Groupomania's Wall</h1>
-        <div class="wallButton">
+        <div class="wallButton" v-if="!moderationEnCours"> 
             <button type="button" class="btn btn-secondary" v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
             <button type="button" class="btn btn-danger" v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
+        </div>
+        <div class="wallButton" v-if="moderationEnCours"> 
+            <button type="button" class="btn btn-danger" v-on:click="cancelModeration ()" >Annuler la modération</button>
         </div>
 
         <div class="wallPartieForm" v-if="formWallActif">
@@ -30,25 +33,36 @@
             </form>   
         </div>
 
-
-
-
-
-
-
-
-
-
-
-        <div class="wallPartiePosts" v-if="!formWallActif">
+        <div class="wallPartiePosts" v-if="!formWallActif && !moderationEnCours">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
-                    <div class="post-element">Ecrit par: {{ wallpost.userId }} le {{ wallpost.create_at }} </div>
+                    <div class="post-element">Ecrit par: {{ wallpost.userId }} le {{wallpost.create_at}} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
-                    <div class="post-element" v-if="wallpost.urlImage !== 'null' ">{{ wallpost.urlImage }}</div>
-                    
+                    <div class="post-element">{{ wallpost.urlImage }}</div>
+                    <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" v-on:click="modererPost(wallpost.id)">Modérer</button></div>
                 </article>                                    
         </div>
+
+       <div class="wallPartiePosts" v-if="moderationEnCours">
+                <article class="articlePost" v-for="wallpostmoderate in wallPostsModerate" :key="wallpostmoderate.id"> 
+                    <div class="post-element">{{ wallpostmoderate.title }}</div>
+                    <div class="post-element">Ecrit par: {{ wallpostmoderate.userId }} le {{wallpostmoderate.create_at}} </div>
+                    <div class="post-element">{{ wallpostmoderate.content }}</div>
+                    <div class="post-element">{{ wallpostmoderate.urlImage }}</div>
+                </article>
+                <div class="divformModeration">
+                    <form @submit.prevent="formModeration">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Texte de<br />modération:</span>
+                            </div>
+                            <textarea class="form-control" v-model="content" ></textarea>
+                        </div>
+                        <button class="btn btn-success" type="submit">Valider la modération !</button>
+                    </form>                   
+                </div>
+        </div>
+
     </div>
 </template>
 
@@ -63,7 +77,9 @@ export default {
             imageUrl: null,
             userId: null,
             wallPosts: null,
-            formWallActif: false
+            formWallActif: false,
+            Admin: false,
+            moderationEnCours: false
         }        
     },
     mounted() {
@@ -104,10 +120,24 @@ export default {
                     console.log(error);
                 });
                 
-            }  
+            },
+            modererPost(id){
+                this.moderationEnCours = true;
+                axios.get('http://localhost:3000/api/admin/moderation/'+id) //on recupere l'article qui sera modérer
+                .then(reponse => this.wallPostsModerate = reponse.data)   
+                .catch(erreur => console.log(erreur));
+            },
+            cancelModeration() {
+                this.moderationEnCours = false;
+            }
+        
     },
     beforeMount(){ 
         this.affichageWall() 
+
+        if(localStorage.authUser && localStorage.levelUser == 4){// si utilisateur connecter est un adminisitrateur
+        this.Admin = true
+        }
     }
 }
 </script>
@@ -155,7 +185,10 @@ export default {
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;
 }
-
+.post-element:nth-child(5){ //div texte
+    border-top: 1px solid black;
+    padding: 1%;
+}
 .input-group{ //formulaire
     margin-bottom: 2%;
 }

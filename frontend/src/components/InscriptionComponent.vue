@@ -11,6 +11,7 @@
                     <option value="1">Technicien.ne</option>
                     <option value="2">Chef de centre</option>
                     <option value="3">Responsable de secteur</option>
+                    <option value="4">Chargé.e de communication</option>
                 </select></label>
             <button type="submit">Inscription</button>
         </form>

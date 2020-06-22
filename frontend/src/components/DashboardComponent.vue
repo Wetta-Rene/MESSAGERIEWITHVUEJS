@@ -4,7 +4,7 @@
             <button v-on:click="newConversationToCancel ()">Retour aux discussions</button>
             <h2>Nouvelle conversation</h2>
             <form @submit.prevent="formDiscussion">
-                <label><button v-on:click="affichageDesDestinataires ()">Mettre à jour liste des destinataires >></button></label>
+                <label><button v-on:click="affichageDesDestinataires(expediteur)">Mettre à jour liste des destinataires >></button></label>
                 <label>
                     <select v-model="destinataire">
                         <option  v-for="user in destinataires" :key="user.id" :value="user.id">{{user.pseudo}}</option>
@@ -86,8 +86,8 @@ export default {
                 })
                 .catch(erreur => console.log(erreur));
             },
-            affichageDesDestinataires (){
-                axios.get('http://localhost:3000/api/auth/allUsers')  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
+            affichageDesDestinataires (id){
+                axios.get('http://localhost:3000/api/auth/allUsers/'+id)  //-> getAllDiscussions -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.destinataires = reponse.data)
                 .catch(erreur => console.log(erreur));
             }

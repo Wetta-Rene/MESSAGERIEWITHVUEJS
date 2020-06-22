@@ -12,6 +12,7 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
+
 new Vue({
   router,
   render: h => h(App)

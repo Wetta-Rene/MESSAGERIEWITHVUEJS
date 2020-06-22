@@ -37,7 +37,7 @@ exports.login = (req, res, next) => {
         if (!valid) {
           return res.status(401).json({ error: 'Mot de passe incorrect !' });
         }
-        res.status(200).json({userId: result[0].id,token: jwt.sign( { userId: result[0].id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
+        res.status(200).json({userId: result[0].id,userLevel: result[0].level,token: jwt.sign( { userId: result[0].id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
       
       })
       .catch(error => res.status(500).json({ error: "<- Erreur 500" }));
@@ -46,7 +46,8 @@ exports.login = (req, res, next) => {
 }
 
 exports.getAllUsers = (req, res, next) => {
-  var sql = 'SELECT pseudo FROM membre';   //  -> on cherche tous les membres...
+  const id = req.params.id;
+  var sql = 'SELECT pseudo FROM membre WHERE id != '+id;   //  -> on cherche tous les membres...
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
@@ -58,24 +59,3 @@ exports.getAllUsers = (req, res, next) => {
 }
 
 
-
-/*
-exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
-    .then(user => {
-      if (!user) {
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-      }
-      bcrypt.compare(req.body.password, user.password)
-        .then(valid => {
-          if (!valid) {
-            return res.status(401).json({ error: 'Mot de passe incorrect !' });
-          }
-          res.status(200).json({userId: user._id,token: jwt.sign( { userId: user._id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
-        
-        })
-        .catch(error => res.status(500).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
-};
-*/

@@ -24,6 +24,9 @@
           <li class="nav-item" v-if="Logged">
             <router-link to="/wall"><button class="btn btn-primary">Groupomania's WALL</button></router-link>
           </li>
+          <li class="nav-item" v-if="Admin">
+            <router-link to="/adminDashboard"><button class="btn btn-primary">Admin</button></router-link>
+          </li>
           <li class="nav-item" v-if="Logged">
             <router-link to="/detailDiscussion"><button class="btn btn-primary">Detail discussion</button></router-link>
           </li>
@@ -45,7 +48,8 @@ export default {
   name: 'App',
     data () {
         return{
-            Logged: false
+            Logged: false,
+            Admin: false
         }        
     },
     methods:{
@@ -57,6 +61,9 @@ export default {
     beforeMount (){ 
       if(localStorage.authUser && localStorage.authUserToken){
         this.Logged = true
+      }
+      if(localStorage.authUser && localStorage.levelUser == 4){// si utilisateur connecter est un adminisitrateur
+        this.Admin = true
       }
     }
 }

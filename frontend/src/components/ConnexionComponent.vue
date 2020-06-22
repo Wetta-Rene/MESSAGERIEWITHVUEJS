@@ -37,7 +37,8 @@ export default {
           if(response){ //si l'utilisateur est bien peut etre bien inscrit
               if(response.status == 200 && response.data.token){ // si reponse 200 et presence token tout est bon
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
-                localStorage.setItem('authUserToken',response.data.token) //on logue en memoire l'Id de l'utilisateur
+                localStorage.setItem('levelUser',response.data.userLevel) //on logue en memoire le niveau de l'utilisateur
+                localStorage.setItem('authUserToken',response.data.token) //on logue en memoire le token de l'utilisateur
                 
                 window.location.replace("http://localhost:8080/dashboard"); //on va à la page des discussions
               }else{
