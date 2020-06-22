@@ -20,21 +20,26 @@ Vue.use(VueRouter)
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewInscription.vue')
   },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue'),
+  //version2 {
+    //path: '/dashboard',
+    //name: 'dashboard',
+    //component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboard.vue'),
   
-  },
-  {
-    path: '/detailDiscussion/:id',
-    name: 'detailDiscussion',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDetailMessage.vue')
-  },
+  //},
+  //{
+    //path: '/detailDiscussion/:id',
+    //name: 'detailDiscussion',
+    //component: () => import(/* webpackChunkName: "about" */ '../views/ViewDetailMessage.vue')
+  //},
   {
     path: '/wall',
     name: 'wall',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewWall.vue')
+  },
+  {
+    path: '/profil',
+    name: 'profil',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewProfil.vue')
   }
 ]
 

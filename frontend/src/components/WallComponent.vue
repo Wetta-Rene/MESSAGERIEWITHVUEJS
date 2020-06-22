@@ -68,6 +68,7 @@
 
 <script>
 const axios = require('axios').default;
+
 export default {
   name: 'WallComponent',
     data () {
@@ -79,12 +80,13 @@ export default {
             wallPosts: null,
             formWallActif: false,
             Admin: false,
-            moderationEnCours: false
+            moderationEnCours: false,
+            postInModeration: null
         }        
     },
     mounted() {
         if(localStorage.authUser) {
-        this.userId = localStorage.authUser;
+            this.userId = localStorage.authUser;
         }
     },
     methods:{
@@ -123,12 +125,14 @@ export default {
             },
             modererPost(id){
                 this.moderationEnCours = true;
+        
                 axios.get('http://localhost:3000/api/admin/moderation/'+id) //on recupere l'article qui sera modérer
                 .then(reponse => this.wallPostsModerate = reponse.data)   
                 .catch(erreur => console.log(erreur));
             },
             cancelModeration() {
-                this.moderationEnCours = false;
+                this.moderationEnCours = false,
+                this.affichageWall ()
             }
         
     },
@@ -152,10 +156,10 @@ export default {
         }
 }
 .wallButton{
-    margin-top: 10%;
+    margin-top: 2%;
 }
 .wallPartiePosts, .wallPartieForm{
-    margin-top: 4%;
+    margin-top: 1%;
 }
 
 .articlePost{

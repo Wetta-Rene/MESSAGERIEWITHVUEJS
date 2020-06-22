@@ -6,7 +6,6 @@
     </b-navbar-brand>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="/">Groupomania</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -18,24 +17,29 @@
           <li class="nav-item" v-if="!Logged">
             <router-link to="/inscription"><button class="btn btn-primary">Inscription</button></router-link>
           </li>
+          <!-- version2
           <li class="nav-item" v-if="Logged">
             <router-link to="/dashboard"><button class="btn btn-primary">Tableau de bord</button></router-link>
           </li>
+          -->
           <li class="nav-item" v-if="Logged">
             <router-link to="/wall"><button class="btn btn-primary">Groupomania's WALL</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <router-link to="/profil"><button class="btn btn-primary">Mon profil</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <button class="btn btn-primary" v-on:click="logOut ()">Déconnexion</button>
           </li>
           <li class="nav-item" v-if="Admin">
             <router-link to="/adminDashboard"><button class="btn btn-primary">Admin</button></router-link>
           </li>
+          <!-- version2
           <li class="nav-item" v-if="Logged">
             <router-link to="/detailDiscussion"><button class="btn btn-primary">Detail discussion</button></router-link>
           </li>
+          -->
         </ul>
-        <b-dropdown v-if="Logged" class="form-inline my-2 my-lg-0" id="dropdown-dropleft" dropleft text="Options" variant="primary">
-          <b-dropdown-item>Mon profil</b-dropdown-item>
-          <b-dropdown-item>Suppression du compte</b-dropdown-item>
-          <b-dropdown-item v-on:click="logOut ()">Déconnexion</b-dropdown-item>
-        </b-dropdown>
       </div>
     </nav>
 

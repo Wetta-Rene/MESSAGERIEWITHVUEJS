@@ -23,7 +23,6 @@ exports.signup = (req, res, next) => {
   });
 }
 
-
 exports.login = (req, res, next) => {
   var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'" ';
 
@@ -58,4 +57,17 @@ exports.getAllUsers = (req, res, next) => {
   });
 }
 
+exports.getOneUser = (req, res, next) => {
+  const idUser = req.params.userId;
+  var sql = 'SELECT * FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      console.log(result)
+      res.status(200).json(result);  
+    }
+  });
+
+}
 

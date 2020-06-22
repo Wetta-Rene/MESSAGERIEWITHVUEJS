@@ -24,14 +24,15 @@ exports.newPost = (req, res, next) => {
   const content = req.body.content;
   const userId = req.body.userId;
   const imageUrl = req.body.imageUrl;
-  //const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  const time = Date.now();
+    //const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-  var insertPost = "INSERT INTO wall (userId, title, content, urlImage) VALUES ('"+userId+"','"+title+"','"+content+"','"+imageUrl+"')";
+  var insertPost = "INSERT INTO wall (userId, title, content, urlImage, create_at) VALUES ('"+userId+"','"+title+"','"+content+"','"+imageUrl+"','"+time+"')";
 
   mysqlConnection.query(insertPost, function(err, result) {
     console.log('------------------');
     console.log(result);
-    console.log('------------------');
+    console.log('-----------------');
 
     if (err) {
       throw err;

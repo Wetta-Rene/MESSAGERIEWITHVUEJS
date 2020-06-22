@@ -3,10 +3,10 @@
       <h1>Connexion</h1>
       <b-form @submit.prevent="formConnexion">
         <b-form-group id="input-group-1" label-for="input-1" description="">
-          <b-form-input d="input-1" v-model="email" type="email" required placeholder="Saisissez votre adresse mail..."></b-form-input>
+          <b-form-input id="input-1" v-model="email" type="email" required placeholder="Saisissez votre adresse mail..."></b-form-input>
         </b-form-group>
         <b-form-group id="input-group-2" label-for="input-2">
-          <b-form-input id="input-2" v-model="password" required placeholder="Saisissez votre mot de passe..."></b-form-input>
+          <b-form-input id="input-2" v-model="password" type="password" required placeholder="Saisissez votre mot de passe..."></b-form-input>
         </b-form-group>
         <button class="btn btn-primary" type="submit">Connexion</button>
       </b-form>
@@ -16,6 +16,8 @@
 
 <script>
 const axios = require('axios').default;
+
+
 export default {
   name: 'ConnexionComponent',
     data() {
@@ -39,8 +41,7 @@ export default {
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('levelUser',response.data.userLevel) //on logue en memoire le niveau de l'utilisateur
                 localStorage.setItem('authUserToken',response.data.token) //on logue en memoire le token de l'utilisateur
-                
-                window.location.replace("http://localhost:8080/dashboard"); //on va à la page des discussions
+                window.location.href= 'http://localhost:8080/wall' //on va à la page des discussions
               }else{
                 localStorage.setItem("messageNav", "Adresse mail ou mot de passe incorrect !");
               }
