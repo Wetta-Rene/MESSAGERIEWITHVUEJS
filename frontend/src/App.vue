@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <div id="divMessageNav">{{messageNav}}</div>
-    <div id="nav">
-      <router-link v-if="!Logged" to="/">Accueil</router-link>
-      <router-link v-if="!Logged" to="/inscription"> | Inscription</router-link>
-      <router-link v-if="Logged" to="/dashboard">Tableau de bord</router-link>
-      <router-link v-if="Logged" to="/wall"> | Groupomania's WALL </router-link>
-      <router-link v-if="Logged" to="/detailDiscussion"> | Detail discussion </router-link>
-      <button v-if="Logged" v-on:click="logOut ()">Déconnexion</button>
-    </div>
+      <b-navbar-brand href="#">
+        <img src="https://placekitten.com/g/30/30" alt="LogoGroupomania">
+      </b-navbar-brand>
+      <b-navbar type="dark">
+        <router-link v-if="!Logged" to="/">Accueil</router-link>
+        <router-link v-if="!Logged" to="/inscription"> | Inscription</router-link>
+        <router-link v-if="Logged" to="/dashboard">Tableau de bord</router-link>
+        <router-link v-if="Logged" to="/wall"> | Groupomania's WALL </router-link>
+        <router-link v-if="Logged" to="/detailDiscussion"> | Detail discussion </router-link>
+        <button v-if="Logged" v-on:click="logOut ()">Déconnexion</button>
+      </b-navbar>
     <router-view/>
   </div>
 </template>

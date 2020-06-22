@@ -1,11 +1,15 @@
 <template>
   <div class="connexion">
       <h1>Connexion</h1>
-      <form @submit.prevent="formConnexion">
-        <label>Adresse mail:</label><label><input type="email" v-model="email" /></label>
-        <label>Mot de passe:</label><label><input type="password" v-model="password" /></label>
-        <button type="submit">Connexion</button>
-      </form>
+      <b-form @submit.prevent="formConnexion">
+        <b-form-group id="input-group-1" label-for="input-1" description="">
+          <b-form-input d="input-1" v-model="email" type="email" required placeholder="Saisissez votre adresse mail..."></b-form-input>
+        </b-form-group>
+        <b-form-group id="input-group-2" label-for="input-2">
+          <b-form-input id="input-2" v-model="password" required placeholder="Saisissez votre mot de passe..."></b-form-input>
+        </b-form-group>
+        <button class="btn btn-primary" type="submit">Connexion</button>
+      </b-form>
 
   </div>
 </template>
