@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-require('dotenv').config();  //chargement du module dotenv pour charger .env avec les mots de passe, config, etc...
 
 const path = require('path');
 const discRoutes = require('./routes/discussion');

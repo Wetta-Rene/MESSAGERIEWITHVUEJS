@@ -7,7 +7,7 @@
                <form @submit.prevent="formPostToWall">
                     <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
                     <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?" required/></label>
-                    <label>Image:</label><label><input type="password" v-model="imageUrl" /></label>
+                    <label>Image:</label><label><input type="text" v-model="imageUrl" /></label>
                     <button type="submit">Poster et voir sur le WALL !</button>
                 </form>                                  
         </div>
@@ -30,9 +30,7 @@
 
 <script>
 const axios = require('axios').default;
-
 export default {
-
   name: 'WallComponent',
     data () {
         return{
@@ -92,5 +90,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 </style>

@@ -7,7 +7,7 @@
                 <label><button v-on:click="affichageDesDestinataires ()">Mettre à jour liste des destinataires >></button></label>
                 <label>
                     <select v-model="destinataire">
-                        <option  v-for="user in destinataires" :key="user.id" value="">{{user.pseudo}}</option>
+                        <option  v-for="user in destinataires" :key="user.id" :value="user.id">{{user.pseudo}}</option>
                     </select> 
                     </label>
                 <label>Message:</label><label><input type="textarea" v-model="content" /></label>
@@ -49,6 +49,7 @@ export default {
     methods:{
             newConversationToCreate (){
                 this.newConversation = true
+                console.log(process.env.URL_FRONTEND)
             },
             newConversationToCancel (){
                 this.newConversation = false
