@@ -2,17 +2,44 @@
     <div class="wall">
         <h1>Groupomania's Wall</h1>
         <div class="wallButton">
-            <button v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
-            <button v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
+            <button type="button" class="btn btn-secondary" v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
+            <button type="button" class="btn btn-danger" v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
         </div>
+
         <div class="wallPartieForm" v-if="formWallActif">
-               <form @submit.prevent="formPostToWall">
-                    <label>Titre*:</label><label><input type="text" v-model="title" placeholder="Soyez bref !" required/></label>
-                    <label>Votre message*:</label><label><input type="text" v-model="content" placeholder="Que voulez vous dire ?" required/></label>
-                    <label>Image:</label><label><input type="text" v-model="imageUrl" /></label>
-                    <button type="submit">Poster et voir sur le WALL !</button>
-                </form>                                  
+            <form @submit.prevent="formPostToWall">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Titre:</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="title">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Texte:</span>
+                    </div>
+                    <textarea class="form-control" v-model="content" ></textarea>
+                </div>
+            <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Image:</span>
+                    </div>
+                    <input type="" class="form-control" v-model="imageUrl" >
+                </div>
+                <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
+            </form>   
         </div>
+
+
+
+
+
+
+
+
+
+
+
         <div class="wallPartiePosts" v-if="!formWallActif">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
@@ -97,9 +124,10 @@ export default {
 .wallButton{
     margin-top: 10%;
 }
-.wallPartiePosts{
+.wallPartiePosts, .wallPartieForm{
     margin-top: 4%;
 }
+
 .articlePost{
     border: 2px solid black;
     margin-bottom: 2%;
@@ -126,5 +154,9 @@ export default {
 }
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;
+}
+
+.input-group{ //formulaire
+    margin-bottom: 2%;
 }
 </style>
