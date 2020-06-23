@@ -8,7 +8,19 @@ const axios = require('axios');
 
 exports.getPostToModerate = (req, res, next) => {
   const id = req.params.id;
-  var sql = 'SELECT * FROM wall WHERE id= "'+id+'" ';   //  -> mettre en fonction de l'utilisateur loguer
+  var sql = 'SELECT * FROM wall WHERE id= "'+id+'" ';
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      res.status(200).json(result);  
+    }
+  });
+};
+
+exports.getAllLastSignup = (req, res, next) => {
+  const id = req.params.id;
+  var sql = 'SELECT * FROM membre WHERE admin= 0 ';   //  
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;

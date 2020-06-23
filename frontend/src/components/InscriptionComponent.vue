@@ -1,21 +1,22 @@
 <template>
     <div class="inscription">
         <h1>Inscription</h1>
-        <form @submit.prevent="formInscription">
-
-            <label>Pseudo:</label><label><input type="text" v-model="pseudo" /></label>
-            <label>Adresse mail:</label><label><input type="email" v-model="email" /></label>
-            <label>Mot de passe:</label><label><input type="password" v-model="password" /></label>
-            <label>Vous êtes:</label><label>
-                <select v-model="level">
-                    <option value="1">Technicien.ne</option>
-                    <option value="2">Chef de centre</option>
-                    <option value="3">Responsable de secteur</option>
-                    <option value="4">Chargé.e de communication</option>
-                </select></label>
-            <button type="submit">Inscription</button>
-        </form>
-
+            <b-form @submit.prevent="formInscription">
+                <b-form-group id="input-group-1" label-for="input-1" description="">
+                    <b-form-input id="input-1" v-model="pseudo" type="text" required placeholder="Choisissez un pseudo..."></b-form-input>
+                </b-form-group>
+                <b-form-group id="input-group-1" label-for="input-1" description="">
+                    <b-form-input id="input-1" v-model="email" type="email" required placeholder="Votre adresse mail..."></b-form-input>
+                </b-form-group>
+                <b-form-group id="input-group-1" label-for="input-1" description="">
+                    <b-form-input id="input-1" v-model="password" type="password" required placeholder="Choisissez un mot de passe..."></b-form-input>
+                </b-form-group>
+                <b-form-group id="input-group-1" label-for="input-1" description="">
+                    <b-form-select v-model="level" :options="options"></b-form-select>
+                </b-form-group>
+                <button class="btn btn-primary" type="submit">Inscription</button>
+                <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
     </div>
 </template>
 
@@ -30,12 +31,21 @@ export default {
             pseudo: null,
             email: null,
             password: null,
-            level: null 
+
+                level: null,
+                options: [
+                { value: null, text: 'Votre métier dans l\'entreprise...' },
+                { value: '1', text: 'Technicien.ne'},
+                { value: '2', text: 'Chef.e de centre'},
+                { value: '3', text: 'Responsable de secteur'},
+                { value: '4', text: 'Chargé.e de Communication'},
+                { value: '5', text: 'Administrateur', disabled: true }
+                ]
         }
     },
     methods:{
             formInscription (){
-                if (this.pseudo == null || this.email == null || this.password == null) {
+                if (this.pseudo == null || this.email == null || this.password == null || this.level == null) {
                     return false;
                 }
                 axios.post('http://localhost:3000/api/user/signup', {
@@ -55,7 +65,16 @@ export default {
                     console.log(error);
                 });
                 
-            }  
+            },
+            onReset(evt) {
+                evt.preventDefault()
+                // Reset our form values
+                this.form.email = ''
+                this.form.name = ''
+                this.form.food = null
+                this.form.checked = []
+               
+            },
         
     },
 }

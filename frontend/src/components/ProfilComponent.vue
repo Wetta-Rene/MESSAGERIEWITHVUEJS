@@ -5,7 +5,7 @@
                                 <li class="list-group-item">Pseudo: {{membre.pseudo}}</li>
                                 <li class="list-group-item">Email: {{membre.email}}</li>
                                 <li class="list-group-item">Mot de passe: C'est secret...</li>
-                                <li class="list-group-item">Fonction: {{membre.level}}</li>
+                                <li class="list-group-item">Fonction: {{membre.metier}}</li>
                                 <li class="list-group-item">
                                     <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
                                 </li> 

@@ -27,18 +27,26 @@ exports.newPost = (req, res, next) => {
   const time = Date.now();
     //const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
-  var insertPost = "INSERT INTO wall (userId, title, content, urlImage, create_at) VALUES ('"+userId+"','"+title+"','"+content+"','"+imageUrl+"','"+time+"')";
-
-  mysqlConnection.query(insertPost, function(err, result) {
-    console.log('------------------');
-    console.log(result);
-    console.log('-----------------');
-
+  var sqlPseudo = 'SELECT pseudo FROM membre WHERE id='+userId;  //on cherche le metier dans la base de donnée
+  mysqlConnection.query(sqlPseudo, function(err, result1) {
+    const pseudo = result1[0].pseudo //on recupere le metier de la premiere requete
     if (err) {
       throw err;
-    } else {
-      //res.sendStatus(200); 
-      res.status(200).json({ id: result.insertId});
-    }
-  });
+    } else { //j'ai le resultat je peux poursuivre
+            var insertPost = "INSERT INTO wall (user, title, content, urlImage, create_at) VALUES ('"+pseudo+"','"+title+"','"+content+"','"+imageUrl+"','"+time+"')";
+
+            mysqlConnection.query(insertPost, function(err, result) {
+              console.log('------------------');
+              console.log(result);
+              console.log('-----------------');
+
+              if (err) {
+                throw err;
+              } else {
+                //res.sendStatus(200); 
+                res.status(200).json({ id: result.insertId});
+              }
+            });
+          }
+        })
 };

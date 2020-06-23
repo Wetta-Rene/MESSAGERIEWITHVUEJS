@@ -36,13 +36,12 @@
         <div class="wallPartiePosts" v-if="!formWallActif && !moderationEnCours">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
-                    <div class="post-element">Ecrit par: {{ wallpost.userId }} le {{wallpost.create_at}} </div>
+                    <div class="post-element">Ecrit par: {{ wallpost.user }} le {{wallpost.create_at}} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
                     <div class="post-element">{{ wallpost.urlImage }}</div>
                     <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" @click="modererPost(wallpost.id)">Modérer</button></div>
                 </article>                                    
         </div>
-
     </div>
 </template>
 
@@ -148,19 +147,26 @@ export default {
     flex-basis: 100%;
 }
 .post-element:nth-child(1){ //div titre
-    font-size: 1.4em;
+    font-size: 1.1em;
     text-align: left; 
     padding-left: 1%;
+    color: white;
+    background-color: black;
 }
 .post-element:nth-child(2){ //div auteur + date
     font-size: 0.8em;
     text-align: right;
     padding-right: 1%;
     border-top: 1px solid black;
+    font-weight: bolder;
 }
 .post-element:nth-child(3){ //div texte
-    font-size: 1.6em;
+    font-size: 1.2em;
+    text-align: justify;
+    padding: 1%;
     border-top: 1px solid black;
+    background-color: grey;
+    color: white;
 }
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;

@@ -1,5 +1,6 @@
 <template>
   <div class="connexion">
+    {{messageNavigation}}
       <h1>Connexion</h1>
       <b-form @submit.prevent="formConnexion">
         <b-form-group id="input-group-1" label-for="input-1" description="">
@@ -23,7 +24,8 @@ export default {
     data() {
           return{
             email: '',
-            password: ''   
+            password: '' , 
+            messageNavigation: null
           }
     },
   methods:{
@@ -41,9 +43,9 @@ export default {
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('levelUser',response.data.userLevel) //on logue en memoire le niveau de l'utilisateur
                 localStorage.setItem('authUserToken',response.data.token) //on logue en memoire le token de l'utilisateur
-                window.location.href= 'http://localhost:8080/wall' //on va à la page des discussions
+                document.location.href= '/wall' //on va à la page du wall
               }else{
-                localStorage.setItem("messageNav", "Adresse mail ou mot de passe incorrect !");
+                this.messageNavigation = "Adresse mail ou mot de passe incorrect !";
               }
           }
       })

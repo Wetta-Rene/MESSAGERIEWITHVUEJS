@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <b-navbar-brand href="#">
-      <img src="/assets/icon-above-font.png" alt="LogoGroupomania">
-    </b-navbar-brand>
+    <div id="logo">
+      <img src="./assets/icon-above-font.png" alt="LogoGroupomania">
+    </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,16 +22,16 @@
           </li>
           -->
           <li class="nav-item" v-if="Logged">
-            <router-link to="/wall"><button class="btn btn-primary">Groupomania's WALL</button></router-link>
+            <router-link to="/wall"><button class="btn btn-primary">The WALL</button></router-link>
           </li>
           <li class="nav-item" v-if="Logged">
             <router-link to="/profil"><button class="btn btn-primary">Mon profil</button></router-link>
           </li>
-          <li class="nav-item" v-if="Logged">
-            <button class="btn btn-primary" v-on:click="logOut ()">Déconnexion</button>
-          </li>
           <li class="nav-item" v-if="Admin">
             <router-link to="/adminDashboard"><button class="btn btn-primary">Admin</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Logged">
+            <button class="btn btn-primary" v-on:click="logOut ()">Déconnexion</button>
           </li>
           <li class="nav-item" v-if="Admin">
             <router-link to="/moderation/:id"><button class="btn btn-primary">Modération</button></router-link>
@@ -101,5 +101,9 @@ export default {
 #viewTotalContent{
   width: 98%;
   margin: auto;
+}
+
+#logo img{
+  width: 30%;
 }
 </style>

@@ -42,6 +42,11 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewProfil.vue')
   },
   {
+    path: '/adminDashboard',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAdmin.vue')
+  },
+  {
     path: '/moderation/:id',
     name: 'moderation',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewModeration.vue')

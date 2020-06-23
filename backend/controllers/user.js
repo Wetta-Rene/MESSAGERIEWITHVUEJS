@@ -6,22 +6,30 @@ const mysqlConnection = require("../connexionSQL");
 
 //inscription utilisateur
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')";
+var sqlMetier = 'SELECT metier FROM fonction WHERE id='+req.body.level;  //on cherche le metier dans la base de donnée
+mysqlConnection.query(sqlMetier, function(err, result1) {
+  const metier = result1[0].metier //on recupere le metier de la premiere requete
+  if (err) {
+    throw err;
+  } else { //j'ai le resultat je peux poursuivre
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+      var sql = "INSERT INTO membre (pseudo, email, password, level, metier,admin) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"','"+metier+"',0)";
 
-    mysqlConnection.query(sql, function(err, result) {
-      console.log('------------------');
-      console.log(result);
-      console.log('------------------');
+      mysqlConnection.query(sql, function(err, result2) {
+        console.log('----result2------');
+        console.log(result2);
+        console.log('-----------------');
 
-      if (err) {
-        throw err;
-      } else {
-        //res.sendStatus(200); 
-        res.status(200).json({ id: result.insertId});
-      }
+        if (err) {
+          throw err;
+        } else {
+          //res.sendStatus(200); 
+          res.status(200).json({ id: result2.insertId});
+        }
+      });
     });
-  });
+  }
+})
 }
 
 //connexion utilisateur
@@ -63,11 +71,15 @@ exports.getAllUsers = (req, res, next) => {
 //afficher un seul utilisateur (profil)
 exports.getOneUser = (req, res, next) => {
   const idUser = req.params.userId;
-  var sql = 'SELECT * FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
-  mysqlConnection.query(sql, function(err, result) {
+  var sqlAllFromMembre = 'SELECT * FROM membre WHERE id ='+idUser;   //  -> on cherche tous du membre
+  var sqlFonctionFromMembre = 'SELECT metier FROM fonction WHERE id= '+sqlAllFromMembre.level
+  mysqlConnection.query(sqlAllFromMembre, function(err, result) {
     if (err) {
       throw err;
-    } else {
+    } else { //on a tout du membre on fait le requete d'apres
+          
+
+
       console.log(result)
       res.status(200).json(result);  
     }

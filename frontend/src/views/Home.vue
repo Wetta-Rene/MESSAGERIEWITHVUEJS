@@ -11,7 +11,7 @@
 import ConnexionComponent from '@/components/ConnexionComponent.vue'
 
 export default {
-  name: 'InscriptionView',
+  name: 'HomeView',
   components: {
     ConnexionComponent
   }
