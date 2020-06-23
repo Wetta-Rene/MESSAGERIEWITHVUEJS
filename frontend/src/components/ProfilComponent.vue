@@ -6,7 +6,10 @@
                             <li class="list-group-item">Email: {{membre.email}}</li>
                             <li class="list-group-item">Mot de passe: C'est secret...</li>
                             <li class="list-group-item">Fonction: {{membre.level}}</li>
-                        </ul>            
+                            <li class="list-group-item">
+                                <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
+                            </li> 
+                        </ul>        
     </div>
 </template>
 
@@ -22,17 +25,22 @@ export default {
             Admin: null
         }        
     },
-    mounted() {
-        if(localStorage.authUser) {
-        this.userId = localStorage.authUser;
-        }
-    },
     methods:{
             affichageProfil (){
-                axios.get('http://localhost:3000/api/auth/profil/'+localStorage.authUser)  //
+                axios.get('http://localhost:3000/api/user/profil/'+localStorage.authUser)  //
                 .then(reponse => this.memberDatas = reponse.data)
                 .catch(erreur => console.log(erreur));
             },
+            supprimerProfil (){
+                 axios.delete('http://localhost:3000/api/user/profil/'+localStorage.authUser)
+                 .then(function (response) {
+                    if(response.status == 200){ // tout est bon dans la suppression cote bdd
+                        localStorage.clear(); // on vide la memoire
+                        window.location.replace("http://localhost:8080/"); //on va à la page d'accueil
+                    }  
+                })
+                .catch(erreur => console.log(erreur));
+            }
     },
     beforeMount(){ 
         this.affichageProfil() 

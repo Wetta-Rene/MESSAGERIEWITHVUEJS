@@ -38,7 +38,7 @@ export default {
                 if (this.pseudo == null || this.email == null || this.password == null) {
                     return false;
                 }
-                axios.post('http://localhost:3000/api/auth/signup', {
+                axios.post('http://localhost:3000/api/user/signup', {
                         pseudo: this.pseudo,
                         email: this.email,
                         password: this.password,

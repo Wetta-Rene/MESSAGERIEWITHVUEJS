@@ -13,8 +13,6 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 
-import VueMoment from 'moment';
-Vue.use(VueMoment);
 
 new Vue({
   router,

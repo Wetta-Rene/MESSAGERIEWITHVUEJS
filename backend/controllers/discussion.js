@@ -34,6 +34,7 @@ exports.getAllMessages = (req, res, next) => {
   });
 };
 
+//créer une nouvelle disccussion
 exports.createDiscussion = (req, res, next) => {
   if(req.body.destinataire != null || req.body.content != null ){
     //quelques const
@@ -62,6 +63,7 @@ exports.createDiscussion = (req, res, next) => {
   }
 };
 
+//suppression discussion et les messages
 exports.deleteDiscussionAndMessages = (req, res, next) => {
   const idDiscussion = req.params.idDiscussion;
   const sqlDeleteDiscussion = "DELETE FROM discussion WHERE id= '"+idDiscussion+"' ";

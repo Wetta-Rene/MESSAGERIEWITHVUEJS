@@ -4,6 +4,7 @@ const User = require('../models/User');
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 
+//inscription utilisateur
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     var sql = "INSERT INTO membre (pseudo, email, password, level) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"')";
@@ -23,6 +24,7 @@ exports.signup = (req, res, next) => {
   });
 }
 
+//connexion utilisateur
 exports.login = (req, res, next) => {
   var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'" ';
 
@@ -44,6 +46,7 @@ exports.login = (req, res, next) => {
   });
 }
 
+//afficher tous les utilisateurs
 exports.getAllUsers = (req, res, next) => {
   const id = req.params.id;
   var sql = 'SELECT pseudo FROM membre WHERE id != '+id;   //  -> on cherche tous les membres...
@@ -57,6 +60,7 @@ exports.getAllUsers = (req, res, next) => {
   });
 }
 
+//afficher un seul utilisateur (profil)
 exports.getOneUser = (req, res, next) => {
   const idUser = req.params.userId;
   var sql = 'SELECT * FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
@@ -71,3 +75,17 @@ exports.getOneUser = (req, res, next) => {
 
 }
 
+//suppression de l'utilisateur
+exports.deleteOneUser = (req, res, next) => {
+  const idUser = req.params.userId;
+  var sql = 'DELETE FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      console.log(result)
+      res.status(200).json(result);  
+    }
+  });
+
+}
