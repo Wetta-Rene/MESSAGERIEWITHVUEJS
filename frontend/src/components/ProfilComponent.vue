@@ -1,15 +1,15 @@
 <template>
-    <div class="profil">
-        <h1>Mon profil</h1>
-                        <ul class="list-group" v-for="membre in memberDatas" :key="membre.id">
-                            <li class="list-group-item">Pseudo: {{membre.pseudo}}</li>
-                            <li class="list-group-item">Email: {{membre.email}}</li>
-                            <li class="list-group-item">Mot de passe: C'est secret...</li>
-                            <li class="list-group-item">Fonction: {{membre.level}}</li>
-                            <li class="list-group-item">
-                                <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
-                            </li> 
-                        </ul>        
+    <div id="profil">
+            <h1>Mon profil</h1>
+                            <ul class="list-group" v-for="membre in memberDatas" :key="membre.id">
+                                <li class="list-group-item">Pseudo: {{membre.pseudo}}</li>
+                                <li class="list-group-item">Email: {{membre.email}}</li>
+                                <li class="list-group-item">Mot de passe: C'est secret...</li>
+                                <li class="list-group-item">Fonction: {{membre.level}}</li>
+                                <li class="list-group-item">
+                                    <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
+                                </li> 
+                            </ul>    
     </div>
 </template>
 
@@ -54,4 +54,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+#profil{
+    width: 80%;
+    margin: auto;
+}
 </style>
