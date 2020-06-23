@@ -39,28 +39,8 @@
                     <div class="post-element">Ecrit par: {{ wallpost.userId }} le {{wallpost.create_at}} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
                     <div class="post-element">{{ wallpost.urlImage }}</div>
-                    <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" v-on:click="modererPost(wallpost.id)">Modérer</button></div>
+                    <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" @click="modererPost(wallpost.id)">Modérer</button></div>
                 </article>                                    
-        </div>
-
-       <div class="wallPartiePosts" v-if="moderationEnCours">
-                <article class="articlePost" v-for="wallpostmoderate in wallPostsModerate" :key="wallpostmoderate.id"> 
-                    <div class="post-element">{{ wallpostmoderate.title }}</div>
-                    <div class="post-element">Ecrit par: {{ wallpostmoderate.userId }} le {{wallpostmoderate.create_at}} </div>
-                    <div class="post-element">{{ wallpostmoderate.content }}</div>
-                    <div class="post-element">{{ wallpostmoderate.urlImage }}</div>
-                </article>
-                <div class="divformModeration">
-                    <form @submit.prevent="formModeration">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Texte de<br />modération:</span>
-                            </div>
-                            <textarea class="form-control" v-model="content" ></textarea>
-                        </div>
-                        <button class="btn btn-success" type="submit">Valider la modération !</button>
-                    </form>                   
-                </div>
         </div>
 
     </div>
@@ -123,12 +103,8 @@ export default {
                 });
                 
             },
-            modererPost(id){
-                this.moderationEnCours = true;
-        
-                axios.get('http://localhost:3000/api/admin/moderation/'+id) //on recupere l'article qui sera modérer
-                .then(reponse => this.wallPostsModerate = reponse.data)   
-                .catch(erreur => console.log(erreur));
+            modererPost (a){
+                window.location.href= 'http://localhost:8080/moderation/'+a  
             },
             cancelModeration() {
                 this.moderationEnCours = false,

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <div id="divMessageNav">{{messageNav}}</div>
     <b-navbar-brand href="#">
       <img src="/assets/icon-above-font.png" alt="LogoGroupomania">
     </b-navbar-brand>
@@ -33,6 +32,9 @@
           </li>
           <li class="nav-item" v-if="Admin">
             <router-link to="/adminDashboard"><button class="btn btn-primary">Admin</button></router-link>
+          </li>
+          <li class="nav-item" v-if="Admin">
+            <router-link to="/moderation/:id"><button class="btn btn-primary">Modération</button></router-link>
           </li>
           <!-- version2
           <li class="nav-item" v-if="Logged">

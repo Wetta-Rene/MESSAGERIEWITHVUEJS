@@ -22,7 +22,7 @@ export default {
             userId: null,
             userPosts: null,
             memberDatas: null,
-            Admin: null
+            Admin: null,
         }        
     },
     methods:{
@@ -43,7 +43,7 @@ export default {
             }
     },
     beforeMount(){ 
-        this.affichageProfil() 
+        this.affichageProfil()
 
         if(localStorage.authUser && localStorage.levelUser == 4){// si utilisateur connecter est un adminisitrateur
         this.Admin = true

@@ -40,6 +40,11 @@ Vue.use(VueRouter)
     path: '/profil',
     name: 'profil',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewProfil.vue')
+  },
+  {
+    path: '/moderation/:id',
+    name: 'moderation',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewModeration.vue')
   }
 ]
 
