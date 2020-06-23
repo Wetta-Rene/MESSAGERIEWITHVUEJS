@@ -5,15 +5,29 @@
             <b-tabs pills card>
             <b-tab title="Inscription(s)" @click="affichageDerniersInscrits()" active>
                 <b-card-text>
-                            <ul class="list-group" v-for="membre in memberDatas" :key="membre.id">
-                                <li class="list-group-item">Pseudo: {{membre.pseudo}}</li>
-                                <li class="list-group-item">Email: {{membre.email}}</li>
-                                <li class="list-group-item">Mot de passe: C'est secret...</li>
-                                <li class="list-group-item">Fonction: {{membre.metier}}</li>
-                                <li class="list-group-item">
-                                    <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
-                                </li> 
-                            </ul>  
+                    <b-card no-body>
+                        <b-tabs pills card vertical>
+                        <b-tab title="New" active v-for="membre in memberDatas" :key="membre.id">
+                            <b-card-text>
+                                    <ul class="list-group">
+                                    <li class="list-group-item">Pseudo:<br /> {{membre.pseudo}}</li>
+                                    <li class="list-group-item">Email:<br /> {{membre.email}}</li>
+                                    <li class="list-group-item">Mot de passe:<br /> C'est secret...</li>
+                                    <li class="list-group-item">Fonction:<br /> {{membre.metier}}</li>
+                                    <li class="list-group-item">
+                                    <b-button size="sm" variant="success" v-on:click="supprimerProfil ()">Valider le membre !</b-button> 
+                                    </li>
+                                    <li class="list-group-item">
+                                    <b-button size="sm" variant="danger" v-on:click="supprimerProfil ()">Supprimer le membre !</b-button> 
+                                    </li> 
+                                </ul>  
+                            </b-card-text>
+                        </b-tab>
+                        </b-tabs>
+                    </b-card>
+
+
+                            
 
 
 
@@ -35,7 +49,7 @@ export default {
   name: 'AdminComponent',
     data() {
           return{
-            
+              memberDatas: null,
           }
     },
   methods:{
