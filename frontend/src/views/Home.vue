@@ -17,3 +17,15 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+
+#infoConnexionToUseApi{
+  margin-top: 4%;
+  margin-bottom: 2%;
+  color: red;
+}
+
+
+</style>
+

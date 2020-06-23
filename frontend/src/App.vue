@@ -42,8 +42,9 @@
         </ul>
       </div>
     </nav>
-
-    <router-view/>
+    <div id="viewTotalContent">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -93,5 +94,10 @@ export default {
       color: #42b983;
     }
   }
+}
+
+#viewTotalContent{
+  width: 98%;
+  margin: auto;
 }
 </style>

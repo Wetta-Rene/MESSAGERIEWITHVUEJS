@@ -1,5 +1,5 @@
 <template>
-    <div class="connexion">
+    <div class="inscription">
         <h1>Inscription</h1>
         <form @submit.prevent="formInscription">
 
