@@ -15,7 +15,7 @@
                                     <li class="list-group-item">Mot de passe:<br /> C'est secret...</li>
                                     <li class="list-group-item">Fonction:<br /> {{membre.metier}}</li>
                                     <li class="list-group-item">
-                                    <b-button size="sm" variant="success" v-on:click="supprimerProfil ()">Valider le membre !</b-button> 
+                                    <b-button size="sm" variant="success" v-on:click="validerProfil (membre.id)">Valider le membre !</b-button> 
                                     </li>
                                     <li class="list-group-item">
                                     <b-button size="sm" variant="danger" v-on:click="supprimerProfil ()">Supprimer le membre !</b-button> 
@@ -50,13 +50,25 @@ export default {
     data() {
           return{
               memberDatas: null,
+              id: null
           }
     },
   methods:{
         affichageDerniersInscrits(){
-            axios.get('http://localhost:3000/api/admin/lastSignup/')  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
+            axios.get('http://localhost:3000/api/admin/lastSignup/')  //-> afficher tous les derniers inscrit non valider
            .then(reponse => this.memberDatas = reponse.data)
             .catch(erreur => console.log(erreur));
+        },
+        validerProfil(id){
+            axios.put('http://localhost:3000/api/admin/setupSignup/'+id)  //-> mettre a jour par validation admin
+            .then(function (response) {
+                    if(response.status == 200){ //si l'utilisateur est bien inscrit
+                        this.affichageDerniersInscrits(); //on recharge la page
+                    }else{
+                        localStorage.setItem("messageNav", "Erreur dans la validation !");
+                    }
+            })
+            .catch(erreur => console.log(erreur));    
         }
   },
 }

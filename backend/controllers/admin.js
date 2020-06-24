@@ -19,8 +19,19 @@ exports.getPostToModerate = (req, res, next) => {
 };
 
 exports.getAllLastSignup = (req, res, next) => {
-  const id = req.params.id;
   var sql = 'SELECT * FROM membre WHERE admin= 0 ';   //  
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      res.status(200).json(result);  
+    }
+  });
+};
+
+exports.setupSignup = (req, res, next) => {
+  const id = req.params.id;
+  var sql = 'UPDATE membre SET admin = 1 WHERE id= "'+id+'" ';   //  
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
