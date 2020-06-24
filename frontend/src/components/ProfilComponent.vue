@@ -7,7 +7,7 @@
                                 <li class="list-group-item">Mot de passe: C'est secret...</li>
                                 <li class="list-group-item">Fonction: {{membre.metier}}</li>
                                 <li class="list-group-item">
-                                    <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon profil !</button> 
+                                    <button class="btn btn-danger" v-on:click="supprimerProfil ()">Supprimer mon compte !</button> 
                                 </li> 
                             </ul>    
     </div>
@@ -27,7 +27,11 @@ export default {
     },
     methods:{
             affichageProfil (){
-                axios.get('http://localhost:3000/api/user/profil/'+localStorage.authUser)  //
+                axios.get('http://localhost:3000/api/user/profil/'+localStorage.authUser,{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  //
                 .then(reponse => this.memberDatas = reponse.data)
                 .catch(erreur => console.log(erreur));
             },

@@ -77,10 +77,6 @@ exports.getOneUser = (req, res, next) => {
     if (err) {
       throw err;
     } else { //on a tout du membre on fait le requete d'apres
-          
-
-
-      console.log(result)
       res.status(200).json(result);  
     }
   });
