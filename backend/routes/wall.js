@@ -6,8 +6,8 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config')
 
 
-router.get('/', wallCtrl.getAllTheWall);  // affiche toutes les publications du mur de l'entreprise
-router.post('/new-post', wallCtrl.newPost); // enregistrement d'un nouveau post sur le wall
+router.get('/', auth, wallCtrl.getAllTheWall);  // affiche toutes les publications du mur de l'entreprise
+router.post('/new-post', auth, wallCtrl.newPost); // enregistrement d'un nouveau post sur le wall
 
 /*
 router.get('/read/:discussion', disCtrl.getAllMessages);  // affiche tous les messages de la discussion choisi

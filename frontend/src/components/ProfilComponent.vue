@@ -36,7 +36,11 @@ export default {
                 .catch(erreur => console.log(erreur));
             },
             supprimerProfil (){
-                 axios.delete('http://localhost:3000/api/user/profil/'+localStorage.authUser)
+                 axios.delete('http://localhost:3000/api/user/profil/'+localStorage.authUser,{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })
                  .then(function (response) {
                     if(response.status == 200){ // tout est bon dans la suppression cote bdd
                         localStorage.clear(); // on vide la memoire

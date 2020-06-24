@@ -46,7 +46,8 @@ exports.login = (req, res, next) => {
         if (!valid) {
           return res.status(401).json({ error: 'Mot de passe incorrect !' });
         }
-        res.status(200).json({userId: result[0].id,userLevel: result[0].level,token: jwt.sign( { userId: result[0].id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
+        //3 params utile pour navigation sur le front: userId, userLevel et le token pour verifier les requetes vers le backend apres
+        res.status(200).json({userId: result[0].id, userLevel: result[0].level, token: jwt.sign( { userId: result[0].id },'RANDOM_TOKEN_SECRET',{ expiresIn: '24h' }) });
       
       })
       .catch(error => res.status(500).json({ error: "<- Erreur 500" }));

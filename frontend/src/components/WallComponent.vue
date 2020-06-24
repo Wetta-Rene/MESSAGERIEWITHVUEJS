@@ -70,7 +70,11 @@ export default {
     },
     methods:{
             affichageWall (){
-                axios.get('http://localhost:3000/api/wall/')  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
+                axios.get('http://localhost:3000/api/wall/',{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  //-> getAllTheWall -> faudrait en fonction de l'utilisateur
                 .then(reponse => this.wallPosts = reponse.data)
                 .catch(erreur => console.log(erreur));
             },
@@ -88,7 +92,11 @@ export default {
                         title: this.title,
                         content: this.content,
                         imageUrl: this.imageUrl,
-                        userId: this.userId}) //identifiant en localstorage
+                        userId: this.userId},{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                }) //identifiant en localstorage
                 .then(function (response) {
                     console.log(response)
                     if(response.status == 200){ //= post bien inscrit dans la base sql

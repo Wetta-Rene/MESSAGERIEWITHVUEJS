@@ -56,12 +56,20 @@ export default {
     },
   methods:{
         affichageDerniersInscrits(){
-            axios.get('http://localhost:3000/api/admin/lastSignup/')  // afficher tous les derniers inscrit non valider
+            axios.get('http://localhost:3000/api/admin/lastSignup/',{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  // afficher tous les derniers inscrit non valider
             .then(reponse => this.memberDatas = reponse.data)
             .catch(erreur => console.log(erreur));
         },
         validerProfil(id){
-            axios.put('http://localhost:3000/api/admin/setupSignup/'+id)  // mettre a jour par validation admin
+            axios.put('http://localhost:3000/api/admin/setupSignup/'+id,{hello: 'world'},{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  // mettre a jour par validation admin
             .then(function (response) {
                     if(response.status == 200){  //-> NE MARCHE PAS
                         this.renderComponent = false;
@@ -76,7 +84,11 @@ export default {
             .catch(erreur => console.log(erreur));    
         },
         supprimerProfil(id){
-            axios.delete('http://localhost:3000/api/admin/deleteSignup/'+id)  // mettre a jour par validation admin
+            axios.delete('http://localhost:3000/api/admin/deleteSignup/'+id,{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  // mettre a jour par validation admin
             .then(function (response) {
                     if(response.status == 200){ 
                          window.location.reload();  //--> ne marche pas

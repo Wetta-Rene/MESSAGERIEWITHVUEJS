@@ -26,7 +26,11 @@ export default {
               if (this.discussion == null) {
                     return false;
                 }
-                axios.get('http://localhost:3000/api/discussions/read/'+this.discussion)
+                axios.get('http://localhost:3000/api/discussions/read/'+this.discussion,{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })
                 .then(reponse => this.posts = reponse.data)   
                 .catch(erreur => console.log(erreur));
             }
