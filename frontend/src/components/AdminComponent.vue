@@ -3,7 +3,7 @@
       <h3>Tableau de bord [ADMIN]</h3>
         <b-card no-body>
             <b-tabs pills card>
-            <b-tab title="Inscription(s)" @click="affichageDerniersInscrits()" active>
+            <b-tab title="Inscription(s)"  @click="affichageDerniersInscrits()" active>
                 <b-card-text>
                     <b-card no-body>
                         <b-tabs pills card vertical>
@@ -50,27 +50,30 @@ export default {
     data() {
           return{
               memberDatas: null,
-              id: null
+              id: null,
           }
     },
   methods:{
         affichageDerniersInscrits(){
-            axios.get('http://localhost:3000/api/admin/lastSignup/')  //-> afficher tous les derniers inscrit non valider
-           .then(reponse => this.memberDatas = reponse.data)
+            axios.get('http://localhost:3000/api/admin/lastSignup/')  // afficher tous les derniers inscrit non valider
+            .then(reponse => this.memberDatas = reponse.data)
             .catch(erreur => console.log(erreur));
         },
         validerProfil(id){
-            axios.put('http://localhost:3000/api/admin/setupSignup/'+id)  //-> mettre a jour par validation admin
+            axios.put('http://localhost:3000/api/admin/setupSignup/'+id)  // mettre a jour par validation admin
             .then(function (response) {
-                    if(response.status == 200){ //si l'utilisateur est bien inscrit
-                        this.affichageDerniersInscrits(); //on recharge la page
+                    if(response.status == 200){ 
+                         window.location.reload();
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la validation !");
                     }
             })
             .catch(erreur => console.log(erreur));    
         }
-  },
+    },
+    beforMount(){
+        this.affichageDerniersInscrits()
+    }
 }
 </script>
 

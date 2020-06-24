@@ -36,7 +36,7 @@
         <div class="wallPartiePosts" v-if="!formWallActif && !moderationEnCours">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
-                    <div class="post-element">Ecrit par: {{ wallpost.user }} le {{wallpost.create_at}} </div>
+                    <div class="post-element">Ecrit par: {{ wallpost.user }} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
                     <div class="post-element">{{ wallpost.urlImage }}</div>
                     <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" @click="modererPost(wallpost.id)">Modérer</button></div>
