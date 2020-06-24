@@ -14,8 +14,7 @@
                 <b-form-group id="input-group-1" label-for="input-1" description="">
                     <b-form-select v-model="level" :options="options"></b-form-select>
                 </b-form-group>
-                <button class="btn btn-primary" type="submit">Inscription</button>
-                <b-button type="reset" variant="danger">Reset</b-button>
+                <button class="btn btn-primary" type="submit">Inscription</button> <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
     </div>
 </template>
@@ -82,5 +81,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+b-button{
+    margin: 4%;
+}
 </style>

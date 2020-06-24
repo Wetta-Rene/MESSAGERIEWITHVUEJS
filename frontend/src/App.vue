@@ -84,7 +84,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 50%;
+  width: 100%;
 }
 
 #nav {
@@ -108,19 +108,6 @@ export default {
 #logo img{
   width: 30%;
 }
-
-/// ADAPTATION AUX ECRANS
-@media only screen and (min-width: 600px) {
-
-}
-@media only screen and (min-width: 768px) {
-}
-@media only screen and (min-width: 992px) {
-}
-@media only screen and (min-width: 1200px) {
-}
-    
-        
             
 
 
