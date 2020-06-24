@@ -88,7 +88,7 @@ export default {
                 if (this.title == null || this.content == null) { //si input titre et content nul pas de validation
                     return false;
                 }
-                axios.post('http://localhost:3000/api/wall/new-post',{
+                axios.post('http://localhost:3000/api/wall/',{
                         title: this.title,
                         content: this.content,
                         imageUrl: this.imageUrl,
