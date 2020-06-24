@@ -15,10 +15,10 @@
                                     <li class="list-group-item">Mot de passe:<br /> C'est secret...</li>
                                     <li class="list-group-item">Fonction:<br /> {{membre.metier}}</li>
                                     <li class="list-group-item">
-                                    <b-button size="sm" variant="success" v-on:click="validerProfil (membre.id)">Valider le membre !</b-button> 
+                                    <b-button size="sm" variant="success" v-on:click="validerProfil(membre.id)">Valider le membre !</b-button> 
                                     </li>
                                     <li class="list-group-item">
-                                    <b-button size="sm" variant="danger" v-on:click="supprimerProfil ()">Supprimer le membre !</b-button> 
+                                    <b-button size="sm" variant="danger" v-on:click="supprimerProfil(membre.id)">Supprimer le membre !</b-button> 
                                     </li> 
                                 </ul>  
                             </b-card-text>
@@ -51,6 +51,7 @@ export default {
           return{
               memberDatas: null,
               id: null,
+              renderComponent: true
           }
     },
   methods:{
@@ -62,8 +63,23 @@ export default {
         validerProfil(id){
             axios.put('http://localhost:3000/api/admin/setupSignup/'+id)  // mettre a jour par validation admin
             .then(function (response) {
+                    if(response.status == 200){  //-> NE MARCHE PAS
+                        this.renderComponent = false;
+                        this.$nextTick(() => {
+                        this.affichageDerniersInscrits()
+                        this.renderComponent = true;
+                        })
+                    }else{
+                        localStorage.setItem("messageNav", "Erreur dans la validation !");
+                    }
+            })
+            .catch(erreur => console.log(erreur));    
+        },
+        supprimerProfil(id){
+            axios.delete('http://localhost:3000/api/admin/deleteSignup/'+id)  // mettre a jour par validation admin
+            .then(function (response) {
                     if(response.status == 200){ 
-                         window.location.reload();
+                         window.location.reload();  //--> ne marche pas
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la validation !");
                     }

@@ -40,3 +40,15 @@ exports.setupSignup = (req, res, next) => {
     }
   });
 };
+
+exports.deleteSetupSignup = (req, res, next) => {
+  const id = req.params.id;
+  var sql = 'DELETE FROM membre WHERE id= "'+id+'" ';   //  
+  mysqlConnection.query(sql, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      res.status(200).json(result);  
+    }
+  });
+};
