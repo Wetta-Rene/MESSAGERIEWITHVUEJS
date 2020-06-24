@@ -27,7 +27,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Image:</span>
                     </div>
-                    <input type="" class="form-control" v-model="imageUrl" >
+                    <input type="text" class="form-control" v-model="imageUrl" >
                 </div>
                 <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
             </form>   
@@ -88,11 +88,12 @@ export default {
                 if (this.title == null || this.content == null) { //si input titre et content nul pas de validation
                     return false;
                 }
-                axios.post('http://localhost:3000/api/wall/new-post', {
+                axios.post('http://localhost:3000/api/wall/new-post',{
                         title: this.title,
                         content: this.content,
                         imageUrl: this.imageUrl,
-                        userId: this.userId},{
+                        userId: this.userId
+                    },{
                     headers: {
                         authorization: localStorage.authUserToken
                         }
