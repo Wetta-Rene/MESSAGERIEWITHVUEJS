@@ -6,12 +6,13 @@ const mysqlConnection = require("../connexionSQL");
 
 //inscription utilisateur
 exports.signup = (req, res, next) => {
+var sqlMetier = 'SELECT metier FROM fonction WHERE id='+req.body.level;  //on cherche le metier dans la base de donnée
 mysqlConnection.query(sqlMetier, function(err, result1) {
   const metier = result1[0].metier //on recupere le metier de la premiere requete
   if (err) {
     throw err;
   } else { //j'ai le resultat je peux poursuivre
-  var sqlMetier = 'SELECT metier FROM fonction WHERE id='+req.body.level;  //on cherche le metier dans la base de donnée
+
     bcrypt.hash(req.body.password, 10, function(err, hash) {
       var sql = "INSERT INTO membre (pseudo, email, password, level, metier,admin) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"','"+metier+"',0)";
 
