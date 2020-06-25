@@ -33,9 +33,6 @@
           <li class="nav-item" v-if="Logged">
             <button class="btn btn-primary" v-on:click="logOut ()">Déconnexion</button>
           </li>
-          <li class="nav-item" v-if="Admin">
-            <router-link to="/moderation/:id"><button class="btn btn-primary">Modération</button></router-link>
-          </li>
           <!-- version2
           <li class="nav-item" v-if="Logged">
             <router-link to="/detailDiscussion"><button class="btn btn-primary">Detail discussion</button></router-link>
@@ -83,7 +80,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+
   width: 100%;
 }
 

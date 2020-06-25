@@ -35,19 +35,21 @@
                                     <b-card-text>
                                             <ul class="list-group">
                                             <li class="list-group-item">Titre:<br /> {{post.title}}</li>
-                                            <li class="list-group-item">Message:<br /> {{post.content}}</li>
+                                            <li class="list-group-item">Message:<br /> <p v-html="post.content"></p></li>
                                             <li class="list-group-item">Image:<br /> {{post.urlImage}}</li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
-                                            <li class="list-group-item">
-                                            <b-button size="sm" variant="warning" v-on:click="modererPost(post.id)" v-if="!moderationEnCours">Modérer le post !</b-button>
-                                            <b-button size="sm" variant="danger" v-on:click="cancelModererPost(post.id)" v-if="moderationEnCours">Annuler modération !</b-button> 
+                                            <li class="list-group-item" v-if="!moderationEnCours">
+                                            <b-button size="sm" variant="warning" v-on:click="modererPost(post.id)">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(post.id)">Marquez le post comme lu !</b-button> 
+                                            </li>
+                                            <li class="list-group-item" v-if="moderationEnCours">
+                                            <b-button size="sm" variant="danger" v-on:click="cancelModererPost(post.id)">Annuler modération !</b-button>
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
                                                 <b-form @submit.prevent="formModeration(post.id)">
                                                     <b-form-group id="input-group-1" label-for="input-1" description="">
                                                     <b-form-input id="input-1" v-model="moderation" type="textarea" required placeholder="Texte de modération..."></b-form-input>
                                                     </b-form-group>
-                                                    <button class="btn btn-primary" variant="success" type="submit">Valider</button>
+                                                    <button class="btn btn-primary" variant="success" type="submit">Valider texte de modération</button>
                                                 </b-form>
                                             </li>
                                         </ul>  
