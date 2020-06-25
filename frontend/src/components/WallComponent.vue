@@ -1,15 +1,12 @@
 <template>
     <div class="wall">
         <h1>Groupomania's Wall</h1>
-        <div class="wallButton" v-if="!moderationEnCours"> 
-            <button type="button" class="btn btn-secondary" v-on:click="newPost ()" v-if="!formWallActif">Créer un post</button>
-            <button type="button" class="btn btn-danger" v-on:click="cancelPost ()" v-if="formWallActif">Annuler le post</button>
-        </div>
-        <div class="wallButton" v-if="moderationEnCours"> 
-            <button type="button" class="btn btn-danger" v-on:click="cancelModeration ()" >Annuler la modération</button>
+        <div class="wallButton"> 
+            <button type="button" class="btn btn-secondary" v-on:click="newPost ()" v-if="formWallActif">Créer un post</button>
+            <button type="button" class="btn btn-danger" v-on:click="cancelPost ()" v-if="!formWallActif">Annuler le post</button>
         </div>
 
-        <div class="wallPartieForm" v-if="formWallActif">
+        <div class="wallPartieForm" v-if="!formWallActif">
             <form @submit.prevent="formPostToWall">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -33,13 +30,16 @@
             </form>   
         </div>
 
-        <div class="wallPartiePosts" v-if="!formWallActif && !moderationEnCours">
+        <div class="wallPartiePosts" v-if="formWallActif">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
                     <div class="post-element">Ecrit par: {{ wallpost.user }} </div>
                     <div class="post-element">{{ wallpost.content }}</div>
                     <div class="post-element">{{ wallpost.urlImage }}</div>
-                    <div class="post-element actionAdmin" v-if="Admin"><button type="button" class="btn btn-warning" @click="modererPost(wallpost.id)">Modérer</button></div>
+                    <div class="post-element" v-if="Admin">
+                        <button v-if="!moderationEnCours" type="button" class="btn btn-danger btn-sm" @click="modererPost()">Modérer</button>
+                        <button v-if="moderationEnCours" type="button" class="btn btn-danger btn-sm" @click="cancelModererPost()">Annuler modération</button>
+                    </div>
                 </article>                                    
         </div>
     </div>
@@ -57,7 +57,7 @@ export default {
             imageUrl: null,
             userId: null,
             wallPosts: null,
-            formWallActif: false,
+            formWallActif: true,
             Admin: false,
             moderationEnCours: false,
             postInModeration: null
@@ -79,10 +79,10 @@ export default {
                 .catch(erreur => console.log(erreur));
             },
             newPost (){
-                this.formWallActif = true 
+                this.formWallActif =  false
             },
             cancelPost (){
-                this.formWallActif = false 
+                this.formWallActif = true 
             },
             formPostToWall (){
                 if (this.title == null || this.content == null) { //si input titre et content nul pas de validation
@@ -111,12 +111,11 @@ export default {
                 });
                 
             },
-            modererPost (a){
-                window.location.href= 'http://localhost:8080/moderation/'+a  
+            modererPost (){
+                this.moderationEnCours = true  
             },
-            cancelModeration() {
-                this.moderationEnCours = false,
-                this.affichageWall ()
+            cancelModererPost() {
+                this.moderationEnCours = false
             }
         
     },
@@ -183,6 +182,7 @@ export default {
 .post-element:nth-child(5){ //div texte
     border-top: 1px solid black;
     padding: 1%;
+    text-align: right;
 }
 .input-group{ //formulaire
     margin-bottom: 2%;
