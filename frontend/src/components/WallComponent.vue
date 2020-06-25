@@ -34,12 +34,8 @@
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element">{{ wallpost.title }}</div>
                     <div class="post-element">Ecrit par: {{ wallpost.user }} </div>
-                    <div class="post-element">{{ wallpost.content }}</div>
+                    <div class="post-element" v-html="wallpost.content"></div>
                     <div class="post-element">{{ wallpost.urlImage }}</div>
-                    <div class="post-element" v-if="Admin">
-                        <button v-if="!moderationEnCours" type="button" class="btn btn-danger btn-sm" @click="modererPost()">Modérer</button>
-                        <button v-if="moderationEnCours" type="button" class="btn btn-danger btn-sm" @click="cancelModererPost()">Annuler modération</button>
-                    </div>
                 </article>                                    
         </div>
     </div>
@@ -59,8 +55,6 @@ export default {
             wallPosts: null,
             formWallActif: true,
             Admin: false,
-            moderationEnCours: false,
-            postInModeration: null
         }        
     },
     mounted() {
@@ -111,13 +105,6 @@ export default {
                 });
                 
             },
-            modererPost (){
-                this.moderationEnCours = true  
-            },
-            cancelModererPost() {
-                this.moderationEnCours = false
-            }
-        
     },
     beforeMount(){ 
         this.affichageWall() 
@@ -186,5 +173,10 @@ export default {
 }
 .input-group{ //formulaire
     margin-bottom: 2%;
+}
+//couleur du texte de modération
+.h6{
+color: red;
+font-weight: bolder;
 }
 </style>
