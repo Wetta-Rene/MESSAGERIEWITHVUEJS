@@ -44,6 +44,7 @@ export default {
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('levelUser',response.data.userLevel) //on logue en memoire le niveau de l'utilisateur
                 localStorage.setItem('authUserToken',response.data.token) //on logue en memoire le token de l'utilisateur
+                localStorage.setItem('userPseudo',response.data.userPseudo) //on logue en mémoire le pseudo pour personnalisé
                 vm.$router.push('wall') //on va à la page du wall
                 }else{
                 this.messageNavigation = "Adresse mail ou mot de passe incorrect !";

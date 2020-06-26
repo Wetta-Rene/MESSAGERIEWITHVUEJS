@@ -22,6 +22,9 @@
           </li>
           -->
           <li class="nav-item" v-if="Logged">
+            Bonjour {{userPseudo}} ! 
+          </li>
+          <li class="nav-item" v-if="Logged">
             <router-link to="/wall"><button class="btn btn-primary">The WALL</button></router-link>
           </li>
           <li class="nav-item" v-if="Logged">
@@ -54,6 +57,7 @@ export default {
         return{
             Logged: false,
             Admin: false,
+            userPseudo: null
         }        
     },
     methods:{
@@ -68,6 +72,9 @@ export default {
       }
       if(localStorage.authUser && localStorage.levelUser == 4){// si utilisateur connecter est un adminisitrateur
         this.Admin = true
+      }
+      if(localStorage.userPseudo){
+        this.userPseudo = localStorage.userPseudo
       }
     }
 
