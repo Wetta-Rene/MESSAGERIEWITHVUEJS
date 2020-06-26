@@ -28,7 +28,6 @@ exports.getAllMessages = (req, res, next) => {
     if (err) {
       throw err;
     } else {
-      console.log(result);
       res.status(200).json(result);
     }
   });
@@ -41,7 +40,6 @@ exports.createDiscussion = (req, res, next) => {
     const expediteur = req.body.expediteur; //-> mettre localstorage de l'utilisateur loguer
     const destinataire = req.body.destinataire;
     const content = req.body.content; //-> a proteger
-
     const sqlinsertDiscussion = "INSERT INTO discussion (utilisateur1, utilisateur2) VALUES ('"+expediteur+"','"+destinataire+"')";
 
     mysqlConnection.query(sqlinsertDiscussion, function(err, result) {

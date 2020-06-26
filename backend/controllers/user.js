@@ -17,10 +17,6 @@ mysqlConnection.query(sqlMetier, function(err, result1) {
       var sql = "INSERT INTO membre (pseudo, email, password, level, metier,admin) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"','"+metier+"',0)";
 
       mysqlConnection.query(sql, function(err, result2) {
-        console.log('----result2------');
-        console.log(result2);
-        console.log('-----------------');
-
         if (err) {
           throw err;
         } else {
