@@ -52,18 +52,4 @@ const router = new VueRouter({
   routes
 })
 
-/*
-//protection des url pour les utilisateurs logger uniquement
-router.beforeEach((to,from,next) => {
-  if(to.meta.requiresAuth){
-      if(localStorage.authUser && localStorage.authUserToken){
-        next()
-      }else{
-        next({name: 'Home'})
-      }
-  }
-  next()
-})
-*/
-
 export default router
