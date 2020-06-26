@@ -18,7 +18,7 @@
                                             <b-button size="sm" variant="success" v-on:click="validerProfil(index,membre.id)">Valider le membre !</b-button> 
                                             </li>
                                             <li class="list-group-item">
-                                            <b-button size="sm" variant="danger" v-on:click="supprimerProfil(membre.id)">Supprimer le membre !</b-button> 
+                                            <b-button size="sm" variant="danger" v-on:click="supprimerProfil(index,membre.id)">Supprimer le membre !</b-button> 
                                             </li> 
                                         </ul>  
                                     </b-card-text>
@@ -31,7 +31,7 @@
                   <b-card-text>
                         <b-card no-body>
                             <b-tabs pills card vertical>
-                                <b-tab title="A lire" active v-for="post in postDatas" :key="post.id">
+                                <b-tab title="A lire" active v-for="(post, index) in postDatas" :key="post.id">
                                     <b-card-text>
                                             <ul class="list-group">
                                             <li class="list-group-item">Titre:<br /> {{post.title}}</li>
@@ -39,7 +39,7 @@
                                             <li class="list-group-item">Image:<br /> {{post.urlImage}}</li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
-                                            <b-button size="sm" variant="warning" v-on:click="modererPost(post.id)">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(post.id)">Marquez le post comme lu !</b-button> 
+                                            <b-button size="sm" variant="warning" v-on:click="modererPost(index,post.id)">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> 
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
                                             <b-button size="sm" variant="danger" v-on:click="cancelModererPost(post.id)">Annuler modération !</b-button>
@@ -81,6 +81,7 @@ export default {
     },
   methods:{
         formModeration(id){
+                const vm = this;
                 if (this.moderation == null) {
                     return false;
                 }
@@ -93,7 +94,7 @@ export default {
                 })
                 .then(function (response) {
                     if(response.status == 200){ //post bien enregistrer
-                        this.moderationEnCours = false
+                        vm.moderationEnCours = false
                         //-->>   ne marche pas (rechargement de la page)
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la saisie côté serveur !");
@@ -144,7 +145,8 @@ export default {
             })
             .catch(erreur => console.log(erreur));    
         },
-        supprimerProfil(id){
+        supprimerProfil(index,id){
+            const vm = this;
             axios.delete('http://localhost:3000/api/admin/deleteSignup/'+id,{
                     headers: {
                         authorization: localStorage.authUserToken
@@ -152,16 +154,29 @@ export default {
                 })  // mettre a jour par validation admin
             .then(function (response) {
                     if(response.status == 200){ 
-                         this.removeElement()  //--> methode ne marche pas
+                         vm.memberDatas.splice(index,1)
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la validation !");
                     }
             })
             .catch(erreur => console.log(erreur));    
         },
-        removeElement: function (index) {
-            this.membre.splice(index, 1);
-        }
+         validerPost(index,id){
+            const vm = this;
+            axios.put('http://localhost:3000/api/admin/setupPost/'+id,{hello: 'world'},{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  // mettre a jour par validation admin
+            .then(function (response) {
+                    if(response.status == 200){  //-> NE MARCHE PAS
+                        vm.postDatas.splice(index,1)
+                    }else{
+                        localStorage.setItem("messageNav", "Erreur dans la validation !");
+                    }
+            })
+            .catch(erreur => console.log(erreur));    
+        },
     },
     beforMount(){
         this.affichageDerniersInscrits()

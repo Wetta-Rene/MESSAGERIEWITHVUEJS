@@ -10,6 +10,7 @@ router.get('/lastSignup/', auth, adminCtrl.getAllLastSignup); //recupere tous le
 router.get('/lastPosts/', auth, adminCtrl.getAllLastPost); //recupere tous les derniers post sur le wall
 router.post('/moderation/:id', auth, adminCtrl.getPostToModerate);  // affiche toutes les discussions de l'utilisateur
 router.put('/setupSignup/:id', auth, adminCtrl.setupSignup); // validation des derniers inscrit
+router.put('/setupPost/:id', auth, adminCtrl.setupPost); // validation des derniers post
 router.delete('/deleteSignup/:id', auth, adminCtrl.deleteSetupSignup); // validation des derniers inscrit
 
 

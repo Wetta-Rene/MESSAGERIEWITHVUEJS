@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  console.log("Token recu: "+req.headers.authorization)
   try {
     const token = req.headers.authorization;
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');  //-> changer clef token (voir dans frontend aussi avec .env)
