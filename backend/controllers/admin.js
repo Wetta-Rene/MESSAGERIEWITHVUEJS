@@ -16,7 +16,7 @@ exports.getPostToModerate = (req, res, next) => {
       const content = result[0].content //on recupere le content du post a moderer
       const moderationText = req.body.moderation;
 
-      const newContentModerer = content +'<br/><br/><h6>[MODERATION: '+moderationText+' ]</h6>'; // nouveau content avec le texte de moderation
+      const newContentModerer = content +'<br/><h6>[MODERATION: '+moderationText+' ]</h6>'; // nouveau content avec le texte de moderation
       console.log("-----------------")
       console.log(content);
       console.log(moderationText);

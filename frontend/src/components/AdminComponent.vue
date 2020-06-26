@@ -39,10 +39,10 @@
                                             <li class="list-group-item">Image:<br /> {{post.urlImage}}</li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
-                                            <b-button size="sm" variant="warning" v-on:click="modererPost(index,post.id)">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> 
+                                            <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> 
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
-                                            <b-button size="sm" variant="danger" v-on:click="cancelModererPost(post.id)">Annuler modération !</b-button>
+                                            <b-button size="sm" variant="danger" v-on:click="cancelModererPost()">Annuler modération !</b-button>
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
                                                 <b-form @submit.prevent="formModeration(post.id)">
@@ -94,7 +94,7 @@ export default {
                 })
                 .then(function (response) {
                     if(response.status == 200){ //post bien enregistrer
-                        vm.moderationEnCours = false
+                        vm.cancelModererPost()
                         //-->>   ne marche pas (rechargement de la page)
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la saisie côté serveur !");
