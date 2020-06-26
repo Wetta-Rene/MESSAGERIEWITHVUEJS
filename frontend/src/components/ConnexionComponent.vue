@@ -25,7 +25,7 @@ export default {
           return{
             email: '',
             password: '' , 
-            messageNavigation: null
+            messageNavigation: null,
           }
     },
   methods:{

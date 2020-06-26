@@ -95,6 +95,7 @@ export default {
                 .then(function (response) {
                     if(response.status == 200){ //post bien enregistrer
                         vm.cancelModererPost()
+                        vm.affichageDerniersPosts()
                         //-->>   ne marche pas (rechargement de la page)
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la saisie côté serveur !");

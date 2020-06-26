@@ -20,7 +20,12 @@
                     </div>
                     <textarea class="form-control" v-model="content" ></textarea>
                 </div>
-
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Image:</span>
+                    </div>
+                <b-form-file input type="file" v-model="imageUrl" :state="Boolean(file)" @change="onFileSelected" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..."></b-form-file>
+                </div>
                 <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
             </form>   
         </div>
@@ -80,7 +85,7 @@ export default {
                 axios.post('http://localhost:3000/api/wall/',{
                         title: this.title,
                         content: this.content,
-                        imageUrl: this.imageUrl,
+                        selectedFile: this.iselectedFile,
                         userId: this.userId
                     },{
                     headers: {
