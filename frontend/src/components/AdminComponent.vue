@@ -110,6 +110,7 @@ export default {
         },
         cancelModererPost(){
             this.moderationEnCours = false
+            this.moderation = null
         },
         affichageDerniersInscrits(){
             axios.get('http://localhost:3000/api/admin/lastSignup/',{
