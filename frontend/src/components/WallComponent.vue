@@ -163,9 +163,6 @@ export default {
     border-top: 1px solid black;
     background-color: grey;
     color: white;
-    h6{
-        color:red;
-    }
 }
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;
@@ -177,10 +174,5 @@ export default {
 }
 .input-group{ //formulaire
     margin-bottom: 2%;
-}
-//couleur du texte de modération
-.h6{
-color: red;
-font-weight: bolder;
 }
 </style>
