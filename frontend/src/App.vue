@@ -53,7 +53,7 @@ export default {
     data () {
         return{
             Logged: false,
-            Admin: false
+            Admin: false,
         }        
     },
     methods:{
@@ -70,6 +70,9 @@ export default {
         this.Admin = true
       }
     }
+
+    
+    
 }
 </script>
 

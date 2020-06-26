@@ -100,6 +100,7 @@ export default {
                 });
                 
             },
+  
     },
     beforeMount(){ 
         this.affichageWall() 
