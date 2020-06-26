@@ -30,6 +30,7 @@ export default {
     },
   methods:{
     formConnexion (){
+      const vm = this;
       if (this.email == null || this.password == null) {
           return false;
       }
@@ -43,7 +44,8 @@ export default {
                 localStorage.setItem('authUser',response.data.userId) //on logue en memoire l'Id de l'utilisateur
                 localStorage.setItem('levelUser',response.data.userLevel) //on logue en memoire le niveau de l'utilisateur
                 localStorage.setItem('authUserToken',response.data.token) //on logue en memoire le token de l'utilisateur
-                document.location.href= '/wall' //on va à la page du wall
+                //document.location.href= '/wall' //on va à la page du wall
+                vm.$router.push('wall')
               }else{
                 this.messageNavigation = "Adresse mail ou mot de passe incorrect !";
               }

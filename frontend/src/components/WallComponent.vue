@@ -20,12 +20,7 @@
                     </div>
                     <textarea class="form-control" v-model="content" ></textarea>
                 </div>
-            <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Image:</span>
-                    </div>
-                    <input type="text" class="form-control" v-model="imageUrl" >
-                </div>
+
                 <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
             </form>   
         </div>

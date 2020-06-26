@@ -7,7 +7,7 @@
                     <b-card-text>
                         <b-card no-body>
                             <b-tabs pills card vertical>
-                                <b-tab title="New" active v-for="membre in memberDatas" :key="membre.id">
+                                <b-tab title="New" active v-for="(membre, index) in memberDatas" :key="membre.id">
                                     <b-card-text>
                                             <ul class="list-group">
                                             <li class="list-group-item">Pseudo:<br /> {{membre.pseudo}}</li>
@@ -15,7 +15,7 @@
                                             <li class="list-group-item">Mot de passe:<br /> C'est secret...</li>
                                             <li class="list-group-item">Fonction:<br /> {{membre.metier}}</li>
                                             <li class="list-group-item">
-                                            <b-button size="sm" variant="success" v-on:click="validerProfil(membre.id)">Valider le membre !</b-button> 
+                                            <b-button size="sm" variant="success" v-on:click="validerProfil(index,membre.id)">Valider le membre !</b-button> 
                                             </li>
                                             <li class="list-group-item">
                                             <b-button size="sm" variant="danger" v-on:click="supprimerProfil(membre.id)">Supprimer le membre !</b-button> 
@@ -128,7 +128,8 @@ export default {
             .then(reponse => this.postDatas = reponse.data)
             .catch(erreur => console.log(erreur));
         },
-        validerProfil(id){
+        validerProfil(index,id){
+            const vm = this;
             axios.put('http://localhost:3000/api/admin/setupSignup/'+id,{hello: 'world'},{
                     headers: {
                         authorization: localStorage.authUserToken
@@ -136,7 +137,7 @@ export default {
                 })  // mettre a jour par validation admin
             .then(function (response) {
                     if(response.status == 200){  //-> NE MARCHE PAS
-                        this.removeElement(id)
+                        vm.memberDatas.splice(index,1)
                     }else{
                         localStorage.setItem("messageNav", "Erreur dans la validation !");
                     }

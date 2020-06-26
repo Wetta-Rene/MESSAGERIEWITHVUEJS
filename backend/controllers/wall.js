@@ -1,5 +1,5 @@
 //Imports
-const fs = require('fs');
+const fs = require('fs'); //pour enregistrer les images
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 const { parse } = require('path');
@@ -23,9 +23,9 @@ exports.newPost = (req, res, next) => {
   const title =  req.body.title;
   const content = req.body.content;
   const userId = req.body.userId;
-  const imageUrl = req.body.imageUrl;
+  //const imageUrl = req.body.imageUrl;
   const time = Date.now();
-    //const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 
   var sqlPseudo = 'SELECT pseudo FROM membre WHERE id='+userId;  //on cherche le metier dans la base de donnée
   mysqlConnection.query(sqlPseudo, function(err, result1) {

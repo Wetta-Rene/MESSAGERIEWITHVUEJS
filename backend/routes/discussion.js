@@ -3,7 +3,7 @@ const router = express.Router();
 
 const disCtrl = require('../controllers/discussion');
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config')
+const multer = require('../middleware/multer-config') // pour les images
 
 
 router.get('/:userId', auth,  disCtrl.getAllDiscussions);  // affiche toutes les discussions de l'utilisateur
