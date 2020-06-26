@@ -178,7 +178,7 @@ export default {
             .catch(erreur => console.log(erreur));    
         },
     },
-    beforMount(){
+    mounted(){
         this.affichageDerniersInscrits()
     }
 }
