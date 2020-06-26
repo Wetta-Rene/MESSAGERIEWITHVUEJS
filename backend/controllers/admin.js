@@ -17,11 +17,6 @@ exports.getPostToModerate = (req, res, next) => {
       const moderationText = req.body.moderation;
 
       const newContentModerer = content +'<br/><h6>[MODERATION: '+moderationText+' ]</h6>'; // nouveau content avec le texte de moderation
-      console.log("-----------------")
-      console.log(content);
-      console.log(moderationText);
-      console.log(newContentModerer);
-      console.log("-----------------")
           /// on met a jour le post
           var sqlUdatePost = 'UPDATE wall SET content = "'+newContentModerer+'" WHERE id= "'+id+'" ';   //  
           mysqlConnection.query(sqlUdatePost, function(err, result) {

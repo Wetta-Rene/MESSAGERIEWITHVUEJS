@@ -42,7 +42,7 @@ exports.newPost = (req, res, next) => {
                 throw err;
               } else {
                 //res.sendStatus(200); 
-                res.status(200).json(id: result.insertId);
+                res.status(200).json({id: result.insertId});
               }
             });
           }

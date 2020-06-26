@@ -22,7 +22,7 @@
           </li>
           -->
           <li class="nav-item" v-if="Logged">
-            Bonjour {{userPseudo}} ! 
+            <p>Bonjour {{userPseudo}} !</p>
           </li>
           <li class="nav-item" v-if="Logged">
             <router-link to="/wall"><button class="btn btn-primary">The WALL</button></router-link>
@@ -92,6 +92,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   width: 100%;
+  margin-bottom: 20%;
 }
 
 #nav {

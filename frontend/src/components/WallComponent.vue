@@ -2,7 +2,7 @@
     <div class="wall">
         <h1>Groupomania's Wall</h1>
         <div class="wallButton"> 
-            <button type="button" class="btn btn-secondary" v-on:click="newPost ()" v-if="formWallActif">Créer un post</button>
+            <button type="button" class="btn btn-info" v-on:click="newPost ()" v-if="formWallActif">Créer un post</button>
             <button type="button" class="btn btn-danger" v-on:click="cancelPost ()" v-if="!formWallActif">Annuler le post</button>
         </div>
 
@@ -158,11 +158,14 @@ export default {
 }
 .post-element:nth-child(3){ //div texte
     font-size: 1.2em;
-    text-align: justify;
-    padding: 1%;
+    text-align: center;
+    padding: 5%;
     border-top: 1px solid black;
     background-color: grey;
     color: white;
+    h6{
+        color:red;
+    }
 }
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;
