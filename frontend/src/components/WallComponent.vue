@@ -24,10 +24,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Image:</span>
                     </div>
-                <b-form-file input type="file" v-model="imageUrl" :state="Boolean(file)" @change="onFileSelected" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..."></b-form-file>
+                <input type="file" v-on:change="onFileChange">
                 </div>
                 <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
+
             </form>   
+
+
         </div>
 
         <div class="wallPartiePosts" v-if="formWallActif">
@@ -35,7 +38,7 @@
                     <div class="post-element">{{ wallpost.title }}</div>
                     <div class="post-element">Ecrit par: {{ wallpost.user }} </div>
                     <div class="post-element" v-html="wallpost.content"></div>
-                    <div class="post-element">{{ wallpost.urlImage }}</div>
+                    <div class="post-element" v-if="wallpost.urlImage"><img :src="wallpost.urlImage"></div>
                 </article>                                    
         </div>
     </div>
@@ -50,11 +53,11 @@ export default {
         return{
             title: null,
             content: null,
-            imageUrl: null,
             userId: null,
             wallPosts: null,
             formWallActif: true,
             Admin: false,
+            image: '',
         }        
     },
     mounted() {
@@ -63,6 +66,32 @@ export default {
         }
     },
     methods:{
+                                onFileChange(e) {
+                                    var files = e.target.files || e.dataTransfer.files;
+                                    if (!files.length)
+                                        return;
+                                    this.createImage(files[0]);
+                                },
+                                createImage(file) {
+                                    //var image = new Image();
+                                    var reader = new FileReader();
+                                    var vm = this;
+
+                                    vm.image = new Image();
+
+                                    reader.onload = (e) => {
+                                        vm.image = e.target.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                },
+                                removeImage: function () {
+                                    this.image = '';
+                                },
+    
+  
+
+
+
             affichageWall (){
                 axios.get('http://localhost:3000/api/wall/',{
                     headers: {
@@ -85,7 +114,7 @@ export default {
                 axios.post('http://localhost:3000/api/wall/',{
                         title: this.title,
                         content: this.content,
-                        selectedFile: this.iselectedFile,
+                        imageUrl: this.image,
                         userId: this.userId
                     },{
                     headers: {

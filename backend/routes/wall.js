@@ -7,7 +7,7 @@ const multer = require('../middleware/multer-config') //pour les images
 
 
 router.get('/', auth, wallCtrl.getAllTheWall);  // affiche toutes les publications du mur de l'entreprise
-router.post('/', auth, multer, wallCtrl.newPost); // enregistrement d'un nouveau post sur le wall
+router.post('/', auth, wallCtrl.newPost); // enregistrement d'un nouveau post sur le wall
 
 /*
 router.get('/read/:discussion', disCtrl.getAllMessages);  // affiche tous les messages de la discussion choisi
