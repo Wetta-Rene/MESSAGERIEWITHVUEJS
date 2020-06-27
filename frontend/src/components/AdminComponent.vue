@@ -36,7 +36,7 @@
                                             <ul class="list-group">
                                             <li class="list-group-item">Titre:<br /> {{post.title}}</li>
                                             <li class="list-group-item">Message:<br /> <p v-html="post.content"></p></li>
-                                            <li class="list-group-item">Image:<br /> {{post.urlImage}}</li>
+                                            <li class="list-group-item">Image:<br /><img :src="post.urlImage"></li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
                                             <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> 
