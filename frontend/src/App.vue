@@ -67,8 +67,10 @@ export default {
       }
     },
     beforeMount (){ 
+      const vm = this;
       if(localStorage.authUser && localStorage.authUserToken){
         this.Logged = true
+        vm.$router.push('wall') //direction le wall
       }
       if(localStorage.authUser && localStorage.levelUser == 4){// si utilisateur connecter est un adminisitrateur
         this.Admin = true
