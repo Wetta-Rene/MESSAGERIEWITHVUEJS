@@ -20,12 +20,16 @@
                     </div>
                     <textarea class="form-control" v-model="content" ></textarea>
                 </div>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Image:</span>
-                    </div>
-                <input type="file" v-on:change="onFileChange">
+
+                <div v-if="!image">
+                    <h4>Vous pouvez ajouter une image à votre post:</h4>
+                    <input type="file" @change="onFileChange">
                 </div>
+                <div v-else>
+                    <img :src="image" /><br /><br />
+                    <button @click="removeImage">Effacer l'image...</button>
+                    </div>
+                <br /><br />
                 <button class="btn btn-success" type="submit">Poster et voir sur le WALL !</button>
 
             </form>   
@@ -73,10 +77,8 @@ export default {
                                     this.createImage(files[0]);
                                 },
                                 createImage(file) {
-                                    //var image = new Image();
                                     var reader = new FileReader();
                                     var vm = this;
-
                                     vm.image = new Image();
 
                                     reader.onload = (e) => {
