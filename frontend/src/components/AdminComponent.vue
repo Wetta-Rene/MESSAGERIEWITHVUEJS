@@ -39,7 +39,7 @@
                                             <li class="list-group-item" v-if="post.urlImage">Image:<br /><img :src="post.urlImage"></li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
-                                            <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> 
+                                            <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> <b-button size="sm" variant="danger" v-on:click="deletePost(index,post.id)">Supprimer le post !</b-button>
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
                                             <b-button size="sm" variant="danger" v-on:click="cancelModererPost()">Annuler modération !</b-button>
@@ -162,9 +162,25 @@ export default {
             })
             .catch(erreur => console.log(erreur));    
         },
-         validerPost(index,id){
+        validerPost(index,id){
             const vm = this;
             axios.put('http://localhost:3000/api/admin/setupPost/'+id,{hello: 'world'},{
+                    headers: {
+                        authorization: localStorage.authUserToken
+                        }
+                })  // mettre a jour par validation admin
+            .then(function (response) {
+                    if(response.status == 200){  //-> NE MARCHE PAS
+                        vm.postDatas.splice(index,1)
+                    }else{
+                        localStorage.setItem("messageNav", "Erreur dans la validation !");
+                    }
+            })
+            .catch(erreur => console.log(erreur));    
+        },
+        deletePost(index,id){
+            const vm = this;
+            axios.delete('http://localhost:3000/api/admin/deletePost/'+id,{
                     headers: {
                         authorization: localStorage.authUserToken
                         }
