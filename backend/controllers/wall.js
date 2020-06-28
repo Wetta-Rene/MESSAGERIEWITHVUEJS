@@ -1,8 +1,7 @@
 //Imports
-const fs = require('fs'); //pour enregistrer les images
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
-const { parse } = require('path');
+
 
 
 exports.getAllTheWall = (req, res, next) => {

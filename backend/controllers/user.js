@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 

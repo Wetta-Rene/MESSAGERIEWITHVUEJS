@@ -1,9 +1,10 @@
+//Import
 const express = require('express');
 const bodyParser = require('body-parser');
 
 
-const path = require('path');
-const discRoutes = require('./routes/discussion');
+
+// version 2 const discRoutes = require('./routes/discussion');
 const userRoutes = require('./routes/user');
 const wallRoutes = require('./routes/wall');
 const adminRoutes = require('./routes/admin');
@@ -19,10 +20,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/discussions', discRoutes); // chemins des discussions
 app.use('/api/user', userRoutes); // chemins utilisateur
 app.use('/api/wall',  wallRoutes); // chemin du wall Groupomania
 app.use('/api/admin', adminRoutes); //chemin de la gestion Admin
  
+// VERSION2
+//app.use('/api/discussions', discRoutes); // chemins des discussions
 module.exports = app;

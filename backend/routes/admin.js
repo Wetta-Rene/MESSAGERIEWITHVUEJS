@@ -1,9 +1,9 @@
+//Import
 const express = require('express');
 const router = express.Router();
 
 const adminCtrl = require('../controllers/admin');
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config')
 
 
 router.get('/lastSignup/', auth, adminCtrl.getAllLastSignup); //recupere tous les derniers inscrit

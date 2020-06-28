@@ -2,7 +2,7 @@
 const mysql = require("mysql");
 
 var mysqlConnection = mysql.createConnection({
-    host: process.env.DB_HOST,
+    host: process.env.DB_HOST, // -> import depuis .env mais le reste ne fonction pas 
     user: 'root',
     password: 'root',
     database: 'GROUPOMANIA', 
