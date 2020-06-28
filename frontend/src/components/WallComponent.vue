@@ -195,6 +195,7 @@ export default {
 }
 .post-element:nth-child(4){ //div texte
     border-top: 1px solid black;
+    padding: 3%;
 }
 .post-element:nth-child(5){ //div texte
     border-top: 1px solid black;

@@ -23,10 +23,6 @@ exports.newPost = (req, res, next) => {
   const content = req.body.content;
   const userId = req.body.userId;
   const imageUrl = req.body.imageUrl;
-  const time = Date.now();
-  //const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-
- console.log("IMAGE RECU: "+imageUrl)
 
   var sqlPseudo = 'SELECT pseudo FROM membre WHERE id='+userId;  //on cherche le metier dans la base de donnée
   mysqlConnection.query(sqlPseudo, function(err, result1) {
@@ -34,7 +30,7 @@ exports.newPost = (req, res, next) => {
     if (err) {
       throw err;
     } else { //j'ai le resultat je peux poursuivre
-            var insertPost = "INSERT INTO wall (user, title, content, urlImage, create_at, admin) VALUES ('"+pseudo+"','"+title+"','"+content+"','"+imageUrl+"','"+time+"',0)";
+            var insertPost = "INSERT INTO wall (user, title, content, urlImage, admin) VALUES ('"+pseudo+"','"+title+"','"+content+"','"+imageUrl+"',0)";
 
             mysqlConnection.query(insertPost, function(err, result) {
               if (err) {

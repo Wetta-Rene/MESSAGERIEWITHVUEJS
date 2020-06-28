@@ -3,7 +3,6 @@ var mysql = require('mysql');
 const mysqlConnection = require("../connexionSQL");
 const axios = require('axios');
 
-
 //Code
 exports.getPostToModerate = (req, res, next) => {
   const id = req.params.id;

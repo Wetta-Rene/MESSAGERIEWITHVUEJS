@@ -4,8 +4,8 @@
         <b-card no-body>
             <b-tabs pills card>
                 <b-tab title="Inscription(s)"  @click="affichageDerniersInscrits()" active>
-                    <b-card-text>
-                        <b-card no-body>
+                    <b-card-text >
+                        <b-card no-body >                           
                             <b-tabs pills card vertical>
                                 <b-tab title="New" active v-for="(membre, index) in memberDatas" :key="membre.id">
                                     <b-card-text>
