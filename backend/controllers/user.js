@@ -37,15 +37,15 @@ mysqlConnection.query(sqlMetier, function(err, result1) {
 
 //connexion utilisateur
 exports.login = (req, res, next) => {
-  const email = encodeURI(req.body.email);
+  const email = req.body.email;
+  const password = req.body.password;
   var sql = 'SELECT * FROM membre WHERE email = "'+email+'" ';
-
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
       res.status(401).json({ error: 'Utilisateur non trouvé !' });
     } else {  //utilisateur trouve
-      bcrypt.compare(req.body.password, result[0].password)
+      bcrypt.compare(password, result[0].password)
       .then(valid => {
         if (!valid) {
           return res.status(401).json({ error: 'Mot de passe incorrect !' });
@@ -88,10 +88,11 @@ exports.getOneUser = (req, res, next) => {
 
 }
 
-//suppression de l'utilisateur
+//suppression de l'utilisateur et de ses publications
 exports.deleteOneUser = (req, res, next) => {
   const idUser = encodeURI(req.params.userId);
-  var sql = 'DELETE FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
+     
+  var sql = 'DELETE wall, membre FROM membre INNER JOIN wall ON membre.id = wall.userId WHERE membre.id = '+idUser;   //  -> on cherche tous du membre
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
@@ -100,5 +101,4 @@ exports.deleteOneUser = (req, res, next) => {
       res.status(200).json(result);  
     }
   });
-
 }

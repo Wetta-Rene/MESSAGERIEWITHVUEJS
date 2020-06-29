@@ -40,7 +40,7 @@
         <div class="wallPartiePosts" v-if="formWallActif">
                 <article class="articlePost" v-for="wallpost in wallPosts" :key="wallpost.id"> 
                     <div class="post-element" v-html="decodeURI(wallpost.title)"></div>
-                    <div class="post-element">Ecrit par: {{ wallpost.user }} </div>
+                    <div class="post-element">Ecrit par: {{ wallpost.userPseudo }} </div>
                     <div class="post-element" v-html="decodeURI(wallpost.content)"></div>
                     <div class="post-element" v-if="wallpost.urlImage"><img :src="wallpost.urlImage"></div>
                 </article>                                    

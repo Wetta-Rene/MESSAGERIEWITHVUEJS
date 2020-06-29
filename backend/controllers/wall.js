@@ -29,7 +29,7 @@ exports.newPost = (req, res, next) => {
     if (err) {
       throw err;
     } else { //j'ai le resultat je peux poursuivre
-            var insertPost = "INSERT INTO wall (user, title, content, urlImage, admin) VALUES ('"+pseudo+"','"+title+"','"+content+"','"+imageUrl+"',0)";
+            var insertPost = "INSERT INTO wall (userId, userPseudo, title, content, urlImage, admin) VALUES ('"+userId+"','"+pseudo+"','"+title+"','"+content+"','"+imageUrl+"',0)";
 
             mysqlConnection.query(insertPost, function(err, result) {
               if (err) {

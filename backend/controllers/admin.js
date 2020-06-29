@@ -77,19 +77,6 @@ exports.setupPost = (req, res, next) => {
   });
 };
 
-//supprimer un utilisateur qui vient de s'inscrire
-exports.deleteSetupSignup = (req, res, next) => {
-  const id = req.params.id;
-  var sql = 'DELETE FROM membre WHERE id= "'+id+'" ';   //  
-  mysqlConnection.query(sql, function(err, result) {
-    if (err) {
-      throw err;
-    } else {
-      res.status(200).json(result);  
-    }
-  });
-};
-
 
 //supprimer un post avant validation
 exports.deletePost = (req, res, next) => {

@@ -13,6 +13,4 @@ router.put('/setupSignup/:id', auth, adminCtrl.setupSignup); // validation des d
 router.put('/setupPost/:id', auth, adminCtrl.setupPost); // validation des derniers post
 router.delete('/deletePost/:id', auth, adminCtrl.deletePost); // supprimer un post
 
-router.delete('/deleteSignup/:id', auth, adminCtrl.deleteSetupSignup); // supprimer un inscrit
-
 module.exports = router;

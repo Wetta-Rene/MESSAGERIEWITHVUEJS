@@ -37,7 +37,7 @@
                                             <li class="list-group-item">Titre:<br /> <p v-html="decodeURI(post.title)"></p></li>
                                             <li class="list-group-item">Message:<br /> <p v-html="decodeURI(post.content)"></p></li>
                                             <li class="list-group-item" v-if="post.urlImage">Image:<br /><img :src="post.urlImage"></li>
-                                            <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
+                                            <li class="list-group-item">Ecrit par:<br /> {{post.userPseudo}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
                                                 <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button>
                                             </li>
@@ -154,7 +154,7 @@ export default {
         },
         supprimerProfil(index,id){
             const vm = this;
-            axios.delete('http://localhost:3000/api/admin/deleteSignup/'+id,{
+            axios.delete('http://localhost:3000/api/user/profil/'+id,{
                     headers: {
                         authorization: localStorage.authUserToken
                         }
