@@ -5,7 +5,6 @@ const mysqlConnection = require("../connexionSQL");
 
 
 exports.getAllTheWall = (req, res, next) => {
-  const userID = req.params.userId;
   var sql = 'SELECT * FROM wall ORDER BY id DESC';   //  -> mettre en fonction de l'utilisateur loguer
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
@@ -19,8 +18,8 @@ exports.getAllTheWall = (req, res, next) => {
 
 exports.newPost = (req, res, next) => {
   // quelque const plus facile a utilise
-  const title =  req.body.title;
-  const content = req.body.content;
+  const title =   encodeURI(req.body.title);
+  const content = encodeURI(req.body.content);
   const userId = req.body.userId;
   const imageUrl = req.body.imageUrl;
 

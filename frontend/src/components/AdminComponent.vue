@@ -34,8 +34,8 @@
                                 <b-tab title="A lire" active v-for="(post, index) in postDatas" :key="post.id">
                                     <b-card-text>
                                             <ul class="list-group">
-                                            <li class="list-group-item">Titre:<br /> {{post.title}}</li>
-                                            <li class="list-group-item">Message:<br /> <p v-html="post.content"></p></li>
+                                            <li class="list-group-item">Titre:<br /> <p v-html="decodeURI(post.title)"></p></li>
+                                            <li class="list-group-item">Message:<br /> <p v-html="decodeURI(post.content)"></p></li>
                                             <li class="list-group-item" v-if="post.urlImage">Image:<br /><img :src="post.urlImage"></li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">

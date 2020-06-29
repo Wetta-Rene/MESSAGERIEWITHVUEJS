@@ -5,7 +5,14 @@ const mysqlConnection = require("../connexionSQL");
 
 //inscription utilisateur
 exports.signup = (req, res, next) => {
-var sqlMetier = 'SELECT metier FROM fonction WHERE id='+req.body.level;  //on cherche le metier dans la base de donnée
+
+//protection des inputs
+const pseudo = encodeURI(req.body.pseudo);
+const email = encodeURI(req.body.email);
+const level = encodeURI(req.body.level);
+
+
+var sqlMetier = 'SELECT metier FROM fonction WHERE id='+level;  //on cherche le metier dans la base de donnée
 mysqlConnection.query(sqlMetier, function(err, result1) {
   const metier = result1[0].metier //on recupere le metier de la premiere requete
   if (err) {
@@ -13,7 +20,7 @@ mysqlConnection.query(sqlMetier, function(err, result1) {
   } else { //j'ai le resultat je peux poursuivre
 
     bcrypt.hash(req.body.password, 10, function(err, hash) {
-      var sql = "INSERT INTO membre (pseudo, email, password, level, metier,admin) VALUES ('"+req.body.pseudo+"','"+req.body.email+"','"+hash+"','"+req.body.level+"','"+metier+"',0)";
+      var sql = "INSERT INTO membre (pseudo, email, password, level, metier,admin) VALUES ('"+pseudo+"','"+email+"','"+hash+"','"+req.body.level+"','"+metier+"',0)";
 
       mysqlConnection.query(sql, function(err, result2) {
         if (err) {
@@ -30,7 +37,8 @@ mysqlConnection.query(sqlMetier, function(err, result1) {
 
 //connexion utilisateur
 exports.login = (req, res, next) => {
-  var sql = 'SELECT * FROM membre WHERE email = "'+req.body.email+'" ';
+  const email = encodeURI(req.body.email);
+  var sql = 'SELECT * FROM membre WHERE email = "'+email+'" ';
 
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
@@ -53,7 +61,7 @@ exports.login = (req, res, next) => {
 
 //afficher tous les utilisateurs
 exports.getAllUsers = (req, res, next) => {
-  const id = req.params.id;
+  const id = encodeURI(req.params.id);
   var sql = 'SELECT pseudo FROM membre WHERE id != '+id;   //  -> on cherche tous les membres...
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
@@ -67,7 +75,7 @@ exports.getAllUsers = (req, res, next) => {
 
 //afficher un seul utilisateur (profil)
 exports.getOneUser = (req, res, next) => {
-  const idUser = req.params.userId;
+  const idUser = encodeURI(req.params.userId);
   var sqlAllFromMembre = 'SELECT * FROM membre WHERE id ='+idUser;   //  -> on cherche tous du membre
   var sqlFonctionFromMembre = 'SELECT metier FROM fonction WHERE id= '+sqlAllFromMembre.level
   mysqlConnection.query(sqlAllFromMembre, function(err, result) {
@@ -82,7 +90,7 @@ exports.getOneUser = (req, res, next) => {
 
 //suppression de l'utilisateur
 exports.deleteOneUser = (req, res, next) => {
-  const idUser = req.params.userId;
+  const idUser = encodeURI(req.params.userId);
   var sql = 'DELETE FROM membre WHERE id = '+idUser;   //  -> on cherche tous du membre
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
