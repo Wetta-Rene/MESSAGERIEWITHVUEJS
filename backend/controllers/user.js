@@ -59,20 +59,6 @@ exports.login = (req, res, next) => {
   });
 }
 
-//afficher tous les utilisateurs
-exports.getAllUsers = (req, res, next) => {
-  const id = encodeURI(req.params.id);
-  var sql = 'SELECT pseudo FROM membre WHERE id != '+id;   //  -> on cherche tous les membres...
-  mysqlConnection.query(sql, function(err, result) {
-    if (err) {
-      throw err;
-    } else {
-      ///res.sendStatus(200); 
-      res.status(200).json(result);  
-    }
-  });
-}
-
 //afficher un seul utilisateur (profil)
 exports.getOneUser = (req, res, next) => {
   const idUser = encodeURI(req.params.userId);

@@ -5,14 +5,15 @@ const axios = require('axios');
 
 //Code
 exports.getPostToModerate = (req, res, next) => {
-  const id = req.params.id;
+  const id = encodeURI(req.params.id);
+
   var sql = 'SELECT * FROM wall WHERE id= "'+id+'" ';
   mysqlConnection.query(sql, function(err, result) {
     if (err) {
       throw err;
     } else {
       const content = result[0].content //on recupere le content du post a moderer
-      const moderationText = req.body.moderation;
+      const moderationText = encodeURI(req.body.moderation);
 
       const newContentModerer = content +'<br/><h6>[MODERATION: '+moderationText+' ]</h6>'; // nouveau content avec le texte de moderation
           /// on met a jour le post
@@ -76,7 +77,6 @@ exports.setupPost = (req, res, next) => {
     }
   });
 };
-
 
 //supprimer un post avant validation
 exports.deletePost = (req, res, next) => {
