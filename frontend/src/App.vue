@@ -86,16 +86,13 @@ export default {
 </script>
 
 <style lang="scss">
-
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 100%;
-  margin-bottom: 20%;
+
 
 }
 
@@ -122,7 +119,40 @@ export default {
   margin-top: 5%;
   margin-bottom: 5%;
 }
-            
+
+@media only screen and (min-width: 600px) {
+  #app{
+  width: 95%;
+  margin: auto;
+  margin-bottom: 5%;
+  } 
+} 
+
+@media only screen and (min-width: 768px) {
+  #app{
+  width: 85%;
+  margin: auto;
+  margin-bottom: 5%;
+  }
+
+} 
+
+@media only screen and (min-width: 992px) {
+  #app{
+  width: 70%;
+  margin: auto;
+  margin-bottom: 5%;
+  }
+
+} 
+
+@media only screen and (min-width: 1200px) {
+  #app{
+  width: 60%;
+  margin: auto;
+  margin-bottom: 5%;
+  }
+}
 
 
 </style>
