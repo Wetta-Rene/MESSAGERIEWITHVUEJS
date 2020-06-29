@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="logo">
-      <img src="./assets/icon-above-font.png" alt="LogoGroupomania">
+      <img src="./assets/logoGeneral.png" alt="LogoGroupomania">
     </div>
 
     <nav class="navbar navbar-expand navbar-dark bg-primary">
@@ -87,6 +87,7 @@ export default {
 
 <style lang="scss">
 
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -95,6 +96,7 @@ export default {
   color: #2c3e50;
   width: 100%;
   margin-bottom: 20%;
+
 }
 
 #nav {
@@ -117,6 +119,8 @@ export default {
 
 #logo img{
   width: 30%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
             
 

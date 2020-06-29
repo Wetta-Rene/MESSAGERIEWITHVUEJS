@@ -39,10 +39,16 @@
                                             <li class="list-group-item" v-if="post.urlImage">Image:<br /><img :src="post.urlImage"></li>
                                             <li class="list-group-item">Ecrit par:<br /> {{post.user}}</li>
                                             <li class="list-group-item" v-if="!moderationEnCours">
-                                            <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button> <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button> <b-button size="sm" variant="danger" v-on:click="deletePost(index,post.id)">Supprimer le post !</b-button>
+                                                <b-button size="sm" variant="warning" v-on:click="modererPost()">Modérer le post !</b-button>
+                                            </li>
+                                            <li class="list-group-item" v-if="!moderationEnCours">
+                                                <b-button size="sm" variant="success" v-on:click="validerPost(index,post.id)">Marquez le post comme lu !</b-button>
+                                            </li>
+                                            <li class="list-group-item" v-if="!moderationEnCours">
+                                                <b-button size="sm" variant="danger" v-on:click="deletePost(index,post.id)">Supprimer le post !</b-button>
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
-                                            <b-button size="sm" variant="danger" v-on:click="cancelModererPost()">Annuler modération !</b-button>
+                                                <b-button size="sm" variant="danger" v-on:click="cancelModererPost()">Annuler modération !</b-button>
                                             </li>
                                             <li class="list-group-item" v-if="moderationEnCours">
                                                 <b-form @submit.prevent="formModeration(post.id)">
