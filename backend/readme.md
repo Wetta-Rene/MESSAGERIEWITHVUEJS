@@ -15,7 +15,8 @@
 
 - fichier .env du backend et du frontend
 
-
+## TEST
+- Image à uploader sur le serveur uniquement < 20 ko
 
 
 ## License

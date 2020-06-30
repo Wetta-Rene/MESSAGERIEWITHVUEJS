@@ -70,30 +70,25 @@ export default {
         }
     },
     methods:{
-                                onFileChange(e) {
-                                    var files = e.target.files || e.dataTransfer.files;
-                                    if (!files.length)
-                                        return;
-                                    this.createImage(files[0]);
-                                },
-                                createImage(file) {
-                                    var reader = new FileReader();
-                                    var vm = this;
-                                    vm.image = new Image();
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                var reader = new FileReader();
+                var vm = this;
+                vm.image = new Image();
 
-                                    reader.onload = (e) => {
-                                        vm.image = e.target.result;
-                                    };
-                                    reader.readAsDataURL(file);
-                                },
-                                removeImage: function () {
-                                    this.image = '';
-                                },
-    
-  
-
-
-
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
+            removeImage: function () {
+                this.image = '';
+            },
             affichageWall (){
                 axios.get('http://localhost:3000/api/wall/',{
                     headers: {
