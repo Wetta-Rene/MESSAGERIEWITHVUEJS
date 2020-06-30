@@ -6,6 +6,7 @@
 
 
 ## Installation
+- copier backend/bdd.sql dans votre base de donnée
 - backend / connexionSQL.js -> mettre les bons paramètres pour la connexion à la base de donnée SQL
 - 1 seul user déjà enregistrée:    
             Email: chloe@groupomania.fr   Mdp: secret       
