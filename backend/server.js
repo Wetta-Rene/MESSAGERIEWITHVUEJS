@@ -1,7 +1,5 @@
 const http = require('http');
 const app = require('./app');
-//variable d'environement non copie sur git
-require('dotenv').config()
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

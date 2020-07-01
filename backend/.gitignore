@@ -1,3 +1,3 @@
 node_modules
-##fichier de configuration du backend ne marche pas !
-.env 
+
+##normalement en production mettre fichier .env pour ne pas montrer les params de config

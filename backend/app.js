@@ -1,7 +1,8 @@
 //Import
 const express = require('express');
 const bodyParser = require('body-parser');
-
+//variable d'environement non copie sur git
+require('dotenv').config();
 
 
 // version 2 const discRoutes = require('./routes/discussion');
