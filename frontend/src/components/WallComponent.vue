@@ -61,7 +61,7 @@ export default {
             wallPosts: null,
             formWallActif: true,
             Admin: false,
-            image: '',
+            image: ''
         }        
     },
     mounted() {

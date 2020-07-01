@@ -1,7 +1,7 @@
 //Import
 const express = require('express');
 const bodyParser = require('body-parser');
-//variable d'environement non copie sur git
+//variable d'environement à ne pas copier en production sur git
 require('dotenv').config();
 
 
