@@ -53,7 +53,7 @@
                                             <li class="list-group-item" v-if="moderationEnCours">
                                                 <b-form @submit.prevent="formModeration(post.id)">
                                                     <b-form-group id="input-group-1" label-for="input-1" description="">
-                                                    <b-form-input id="input-1" v-model="moderation" type="textarea" required placeholder="Texte de modération..."></b-form-input>
+                                                    <b-form-input id="input-1" v-model="moderation" type="textarea" required pattern="^[^&amp;'<>&quot;()!_$*€£`+=\/;?#]+$" placeholder="Texte de modération..."></b-form-input>
                                                     </b-form-group>
                                                     <button class="btn btn-primary" variant="success" type="submit">Valider texte de modération</button>
                                                 </b-form>

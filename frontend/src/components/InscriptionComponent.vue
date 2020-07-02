@@ -3,13 +3,13 @@
         <h1>Inscription</h1>
             <b-form @submit.prevent="formInscription">
                 <b-form-group id="input-group-1" label-for="input-1" description="">
-                    <b-form-input id="input-1" v-model="pseudo" type="text" required placeholder="Choisissez un pseudo..."></b-form-input>
+                    <b-form-input id="input-1" v-model="pseudo" type="text" required pattern="^[^&amp;<>@&quot;()'!_$*€£`+=\/;?#]+$" placeholder="Choisissez un pseudo..."></b-form-input>
                 </b-form-group>
                 <b-form-group id="input-group-1" label-for="input-1" description="">
-                    <b-form-input id="input-1" v-model="email" type="email" required placeholder="Votre adresse mail..."></b-form-input>
+                    <b-form-input id="input-1" v-model="email" type="email" required pattern="^[^&amp;<>&quot;()'!_$*€£`+=\/;?#]+$" placeholder="Votre adresse mail..."></b-form-input>
                 </b-form-group>
                 <b-form-group id="input-group-1" label-for="input-1" description="">
-                    <b-form-input id="input-1" v-model="password" type="password" required placeholder="Choisissez un mot de passe..."></b-form-input>
+                    <b-form-input id="input-1" v-model="password" type="password" required pattern="^[^&amp;<>'@&quot;`+=\/;?#]+$" placeholder="Choisissez un mot de passe..."></b-form-input>
                 </b-form-group>
                 <b-form-group id="input-group-1" label-for="input-1" description="">
                     <b-form-select v-model="level" :options="options"></b-form-select>

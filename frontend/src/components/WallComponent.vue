@@ -12,13 +12,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Titre:</span>
                     </div>
-                    <input type="text" class="form-control" v-model="title">
+                    <input type="text" class="form-control" pattern="^[^&amp;'<>@&quot;()!_$*€£`+=\/;?#]+$" v-model="title">
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Texte:</span>
                     </div>
-                    <textarea class="form-control" v-model="content" ></textarea>
+                    <textarea class="form-control" pattern="^[^&amp;'<>@&quot;()!_$*€£`+=\/;?#]+$" v-model="content" ></textarea>
                 </div>
 
                 <div v-if="!image">
@@ -55,6 +55,7 @@ export default {
   name: 'WallComponent',
     data () {
         return{
+            error: null,
             title: null,
             content: null,
             userId: null,
